@@ -17,7 +17,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             repository = _repository;
         }
         [AllowAnonymous]
-        public IActionResult List(string id = "all", bool inStock = false)
+        public IActionResult List(string search, string id = "all", bool inStock = false)
         {
             IEnumerable<Product> products;
 
@@ -27,16 +27,19 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             }
             else
             {
-                products = repository.Product.FindByCondition(p => p.ProductTypeID == repository.ProductType.
-                FindAll().FirstOrDefault(p => p.ProductTypeName.ToLower() == id).ProductTypeID);
+                var requiredProdType = repository.ProductType.FindAll().FirstOrDefault(p => p.ProductTypeName.ToLower() == id);
+                products = repository.Product.FindByCondition(p => p.ProductTypeID == requiredProdType.ProductTypeID);
             }
             if (inStock)
                 products = products.Where(p => p.InStock);
+            if (search!=default)
+                products = products.Where(p => p.Name.ToLower().Contains(search.Trim().ToLower()));
 
             return View(new ProductListViewModel
             {
-                Products = repository.Product.FindAll(),
-                SelectedType = id
+                Products = products,
+                SelectedType = id,
+                search = search
             });
         }
         [HttpGet]

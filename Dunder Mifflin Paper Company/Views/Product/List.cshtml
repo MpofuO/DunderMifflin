@@ -5,25 +5,37 @@
 }
 
 <div class="row">
-    <div>
-        <vc:type-menu></vc:type-menu>
+    <div class="col-2">
     </div>
-    @foreach (Product p in Model.Products)
-    {
-        <div class="col-md-4">
-            <div class="bg-light m-1 pb-2">
-                <img src="/images/dundermifflin.png" alt="@p.Name" style="width: 100%">
-                <h3 class="text-right">@p.Price.ToString("c")</h3>
-                <h3>
-                    <a asp-action="Details" asp-route-id="@p.ProductID">@p.Name</a>
-                </h3>
-                <p>
-                    @{
-                        string desc = p.InStock ? "In stock" : "Out of stock";
-                    }
-                    @desc
-                </p>
+    <div class="row col-10">
+        <form method="get" asp-action="List" asp-route-id="@Model.SelectedType">
+            <div class="mb-3 d-flex justify-content-center">
+                <input placeholder="Search for products..." name="search" asp-for="search" class="d-inline my-auto form-control" style="width:80%;" />
+                <button type="submit" class="btn btn-secondary my-auto d-inline d-flex" style="height:38px; position:relative;margin-left:5px;">
+                    <i class="fa fa-search fa my-auto"></i>
+                </button>
             </div>
+        </form>
+        <div class="mb-4">
+            @await Component.InvokeAsync("TypeMenu")
         </div>
-    }
+        @foreach (Product p in Model.Products)
+        {
+            <div class="col-md-3">
+                <div class="bg-light m-1 pb-2">
+                    <img src="/images/dundermifflin.png" alt="@p.Name" style="width: 100%">
+                    <h5>
+                        <a asp-action="Details" asp-route-id="@p.ProductID">@p.Name</a>
+                    </h5>
+                    <p class="text-right lead mb-0">R@(p.Price)</p>
+                    <p>
+                        @{
+                            string desc = p.InStock ? "In stock" : "Out of stock";
+                        }
+                        @desc
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
 </div>

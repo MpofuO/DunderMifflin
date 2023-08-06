@@ -1,19 +1,15 @@
 ﻿@model ProdTypeListViewModel
 
-<ul class="list-group-horizontal">
-    <li class="list-group-item">
-        <a asp-action="List" asp-route-id="All"
-           class="list-group-item @Model.CheckActiveCategory("all") @Model.CheckActiveCategory(null)">
-            All
-        </a>
-    </li>
+<div class="btn-group mb-3 d-flex justify-content-center">
+    <a asp-action="List" asp-route-id="all"
+       class="btn mx-1 btn btn-outline-primary @($"{Model.CheckActiveCategory("all")}")">
+        All
+    </a>
     @foreach (ProductType pt in Model.ProductTypes)
     {
-        <li class="list-group-item">
-            <a asp-action="List" asp-route-id="@pt.ProductTypeName"
-               class="list-group-item @Model.CheckActiveCategory(pt.ProductTypeName.ToLower())">
-                @pt.ProductTypeName
-            </a>
-        </li>
+        <a asp-action="List" asp-route-id="@pt.ProductTypeName.ToLower()"
+           class="btn mx-1 btn-outline-primary @($"{Model.CheckActiveCategory(pt.ProductTypeName)}")">
+            @pt.ProductTypeName.Replace("and", "&")
+        </a>
     }
-</ul>
+</div>

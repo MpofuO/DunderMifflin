@@ -5,6 +5,6 @@
         public IEnumerable<ProductType> ProductTypes { get; set; }
         public string SelectedCategory { get; set; }
         public string CheckActiveCategory(string category) =>
-            category == SelectedCategory ? "active" : "";
+            category.ToLower() == SelectedCategory.ToLower() ? "active" : "";
     }
 }

@@ -1,9 +1,8 @@
 body {
-    background-image: url('/images/lights.jpg');
     background-size: cover;
+    background-color: white !important;
 }
 
 main, footer {
     padding: 10px;
-    background-color: white;
 }

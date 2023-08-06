@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Personal Projects\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company.csproj": {}
+    "C:\\Users\\20208\\Source\\Repos\\DunderMifflin\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company.csproj": {}
   },
   "projects": {
-    "F:\\Personal Projects\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company.csproj": {
+    "C:\\Users\\20208\\Source\\Repos\\DunderMifflin\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Personal Projects\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company.csproj",
+        "projectUniqueName": "C:\\Users\\20208\\Source\\Repos\\DunderMifflin\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company.csproj",
         "projectName": "Dunder Mifflin Paper Company",
-        "projectPath": "F:\\Personal Projects\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company.csproj",
+        "projectPath": "C:\\Users\\20208\\Source\\Repos\\DunderMifflin\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company.csproj",
         "packagesPath": "C:\\Users\\20208\\.nuget\\packages\\",
-        "outputPath": "F:\\Personal Projects\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company\\obj\\",
+        "outputPath": "C:\\Users\\20208\\Source\\Repos\\DunderMifflin\\Dunder Mifflin Paper Company\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
