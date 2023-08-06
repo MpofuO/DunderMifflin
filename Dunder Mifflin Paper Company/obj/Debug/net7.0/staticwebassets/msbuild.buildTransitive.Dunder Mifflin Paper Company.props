@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Dunder Mifflin Paper Company.props" />
+</Project>

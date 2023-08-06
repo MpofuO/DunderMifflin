@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Dunder Mifflin Paper Company.props" />
+</Project>

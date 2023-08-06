@@ -1,0 +1,96 @@
+﻿@{
+    string controller =
+        ViewContext.RouteData.Values["controller"].ToString();
+    string action =
+        ViewContext.RouteData.Values["action"].ToString();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Dunder Mifflin</title>
+    <link rel="stylesheet" asp-href-include="/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" asp-href-include="/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" asp-href-include="/css/custom.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md bg-primary navbar-dark">
+            <a class="navbar-brand ms-1">Dunder Mifflin Paper Company</a>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <nav class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto">
+                    @if ((User.Identity.IsAuthenticated && (!(User.IsInRole("CEO") || User.IsInRole("Manager"))) || !User.Identity.IsAuthenticated))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link
+                        @(controller == "Home" && action == "Index" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link
+                        @(controller == "Product" ? "active" : "")" asp-controller="Product" asp-action="List">Products</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">More</a>
+                                <div class="dropdown-menu">
+                                    @if (User.IsInRole("Customer"))
+                                    {
+                                        <a class="dropdown-item" asp-controller="Order" asp-action="Index">Cart</a>
+                                    }
+                                    <a class="dropdown-item" asp-controller="Order" asp-action="Index">Orders</a>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+                <ul class="navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole("CEO") || User.IsInRole("Manager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link
+                                @(controller.StartsWith("Admin") ? "active" : "")" asp-controller="Admin" asp-action="Index">Managenent</a>
+                            </li>
+                        }
+                        <li class="nav-item me-1">
+                            <form asp-controller="Account" asp-action="Logout" method="post">
+                                <button class="btn btn-link nav-link" type="submit">Log Out</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </nav>
+    </header>
+    <main class="container">
+        @RenderBody()
+    </main>
+    <footer class="container small">
+        <hr />
+        <div class="text-center">
+            <p>Created by: O. Mpofu</p>
+            <p><span class="fa-solid fa-copyright"></span>@DateTime.Now.Year - Dunder Mifflin Paper Company</p>
+        </div>  
+    </footer>
+    <script asp-src-include="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

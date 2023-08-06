@@ -1,0 +1,29 @@
+﻿@model ProductListViewModel
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="row">
+    <div>
+        <vc:type-menu></vc:type-menu>
+    </div>
+    @foreach (Product p in Model.Products)
+    {
+        <div class="col-md-4">
+            <div class="bg-light m-1 pb-2">
+                <img src="/images/dundermifflin.png" alt="@p.Name" style="width: 100%">
+                <h3 class="text-right">@p.Price.ToString("c")</h3>
+                <h3>
+                    <a asp-action="Details" asp-route-id="@p.ProductID">@p.Name</a>
+                </h3>
+                <p>
+                    @{
+                        string desc = p.InStock ? "In stock" : "Out of stock";
+                    }
+                    @desc
+                </p>
+            </div>
+        </div>
+    }
+</div>

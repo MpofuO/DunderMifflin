@@ -1,0 +1,19 @@
+﻿@model ProdTypeListViewModel
+
+<ul class="list-group-horizontal">
+    <li class="list-group-item">
+        <a asp-action="List" asp-route-id="All"
+           class="list-group-item @Model.CheckActiveCategory("all") @Model.CheckActiveCategory(null)">
+            All
+        </a>
+    </li>
+    @foreach (ProductType pt in Model.ProductTypes)
+    {
+        <li class="list-group-item">
+            <a asp-action="List" asp-route-id="@pt.ProductTypeName"
+               class="list-group-item @Model.CheckActiveCategory(pt.ProductTypeName.ToLower())">
+                @pt.ProductTypeName
+            </a>
+        </li>
+    }
+</ul>

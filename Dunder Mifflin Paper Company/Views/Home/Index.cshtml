@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="mt-5 p-5 text-white rounded bg-primary" id="PageHeader">
+    <div class="container text-center">
+        <h1 class="display-4">Welcome to</h1>
+        <p class="display-1">Dunder Mifflin Paper Company</p>
+        <p class="lead">For all your paper product needs</p>
+        @if (User.IsInRole("CEO") || User.IsInRole("Manager"))
+        {
+            <a class="btn btn-success" asp-controller="Admin" asp-action="List">Management</a>
+        }
+        else
+        {
+            <a class="btn btn-success" asp-controller="Product" asp-action="List" asp-route-id="all">View Products</a>
+        }
+    </div>
+</div>
+
+
