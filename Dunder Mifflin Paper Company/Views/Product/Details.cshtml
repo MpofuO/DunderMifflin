@@ -1,0 +1,28 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <img src="/images/dundermifflin.png" class="img-rounded" alt="@Model.Name" style="width: 100%">
+    </div>
+    <div class="col-md-6 my-auto">
+        <div class="mb-5">
+            <h3>@Model.Name</h3>
+            <h1>@($"R{Model.Price}")</h1>
+            <h5>@(Model.InStock ? "In stock" : "Out of stock")</h5>
+        </div>
+        <div>
+            <form asp-action="AddToCart" asp-route-productId="@Model.ProductID" method="post">
+                <div class="d-inline mx-3">
+                    <button class="btn btn-primary" type="submit">Add to cart</button>
+                </div>
+                <div class="d-inline mx-3 mt-2">
+                    <button class="btn btn-outline-secondary"><i class="fa-solid fa-heart"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

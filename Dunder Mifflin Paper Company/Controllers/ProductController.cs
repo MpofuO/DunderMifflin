@@ -1,4 +1,5 @@
-﻿using Dunder_Mifflin_Paper_Company.Data;
+﻿using ContosoUniversity.Data.DataAccess;
+using Dunder_Mifflin_Paper_Company.Data;
 using Dunder_Mifflin_Paper_Company.Models;
 using Dunder_Mifflin_Paper_Company.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Dunder_Mifflin_Paper_Company.Controllers
 {
-    [Authorize(Roles = "Sales")]
+    [Authorize(Roles = "Sales, Customer")]
     public class ProductController : Controller
     {
         private readonly IRepositoryWrapper repository;
@@ -16,6 +17,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
         {
             repository = _repository;
         }
+
         [AllowAnonymous]
         public IActionResult List(string search, string id = "all", bool inStock = false)
         {
@@ -32,7 +34,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             }
             if (inStock)
                 products = products.Where(p => p.InStock);
-            if (search!=default)
+            if (search != default)
                 products = products.Where(p => p.Name.ToLower().Contains(search.Trim().ToLower()));
 
             return View(new ProductListViewModel
@@ -42,11 +44,44 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                 search = search
             });
         }
+
         [HttpGet]
         public IActionResult Add()
         {
-            return View("Update",new Product());
+            return View("Update", new Product());
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Customer")]
+        public IActionResult AddToCart(int productId)
+        {
+            var product = repository.Product.GetById(productId);
+            if (product.InStock)
+            {
+                var order = repository.Order.FindAll().FirstOrDefault(
+                    order => order.ProductID == productId && order.CustomerUserName == User.Identity.Name && !order.isPlaced
+                    );
+                if (order != null)
+                    order.ProductQuantity++;
+                else
+                {
+                    order = new Order
+                    {
+                        ProductID = productId,
+                        ProductQuantity = 1,
+                        CustomerUserName = User.Identity.Name,
+                    };
+                }
+                repository.Order.Update(order);
+                repository.Save();
+                TempData["Message"] = order.ProductQuantity > 1 ? "Product was already in cart and has been updated" : "Product added to cart";
+            }
+            else
+                ModelState.AddModelError("", "This product is currently out of stock");
+
+            return RedirectToAction("Details", new { id = productId });
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Details(int id)

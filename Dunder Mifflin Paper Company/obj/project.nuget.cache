@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WPjvUAWqMWIt3di86+p2+HiITtmj62N2ox7YX72t3v/BlIniHWbe/qW7BWJMlEOh7zhHP3Gei4qUgZ5BDgfRzw==",
+  "dgSpecHash": "B9KNuQH9GLiXsd4PzxlCsCwmya9OMiwKNpGH38jQ7Mp3uI+D6W/91TdLX1Z0JpF1iIULbWHN3z29TNjwJS7DPg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\20208\\Source\\Repos\\DunderMifflin\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company.csproj",
+  "projectFilePath": "C:\\Users\\20208\\source\\repos\\DunderMifflin\\Dunder Mifflin Paper Company\\Dunder Mifflin Paper Company.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\20208\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\20208\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
