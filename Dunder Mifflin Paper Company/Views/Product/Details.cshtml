@@ -4,25 +4,43 @@
     ViewData["Title"] = "Product Details";
 }
 
-<div class="row">
-    <div class="col-md-6">
-        <img src="/images/dundermifflin.png" class="img-rounded" alt="@Model.Name" style="width: 100%">
+<p>
+    Category: <a asp-action="List" asp-route-id="@Model.ProductType.ProductTypeName.ToLower()">@Model.ProductType.ProductTypeName</a>
+</p>
+<div class="row mb-5">
+    <div class="row col col-md-8 bg-white me-3">
+        <div class="col-md-6 me-3 d-flex align-content-center" style="flex-wrap:wrap;">
+            <img src="/images/dundermifflin.png" alt="@Model.Name" style="width: 100%; border: thin solid #c7c7c7;">
+        </div>
+
+        <div class="col-md-5 me-1" style="height:fit-content;">
+            <div class="px-1 py-1 mb-1 my-auto">
+                <h4>@Model.Name</h4>
+                <p style="">@Model.Description</p>
+                <p style="font-size:small;"><i class="fa-regular fa-star"></i> No Rating</p>
+                <hr />
+                <p class="my-0 py-0">
+                    <strong>@(Model.InStock ? "In stock" : "Out of stock")</strong>
+                </p>
+                <hr />
+                <ul style="font-size:smaller; margin-left:-20px; margin-top:10%;">
+                    <li>Hassle-Free Exchanges & Returns for 30 Days.</li>
+                    <li>12-Month Limited Warranty.</li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="col-md-6 my-auto">
-        <div class="mb-5">
-            <h3>@Model.Name</h3>
-            <h1>@($"R{Model.Price}")</h1>
-            <h5>@(Model.InStock ? "In stock" : "Out of stock")</h5>
-        </div>
-        <div>
-            <form asp-action="AddToCart" asp-route-productId="@Model.ProductID" method="post">
-                <div class="d-inline mx-3">
-                    <button class="btn btn-primary" type="submit">Add to cart</button>
-                </div>
-                <div class="d-inline mx-3 mt-2">
-                    <button class="btn btn-outline-secondary"><i class="fa-solid fa-heart"></i></button>
-                </div>
-            </form>
-        </div>
+    <div class="col col-md-4 bg-white" style="height:fit-content; width:30%;">
+        <h2 class="mb-0">@($"R{Model.Price}")</h2>
+        <p class="mb-1" style="font-size:small;"><i class="fa-solid fa-check text-success"></i> Eligible for cash on delivery</p>
+        <p class="mb-3" style="font-size:small;"><i class="fa-solid fa-check text-success"></i> Free delivery for orders at R950 or more</p>
+        <form asp-action="AddToCart" asp-route-productId="@Model.ProductID" method="post" class="mb-2">
+            <div class="">
+                <button class="btn btn-success" type="submit" style="width:100%;">+<i class="fa-solid fa-cart-shopping"></i> Add to cart</button>
+            </div>
+            <div class="my-2">
+                <button class="btn btn-outline-secondary" style="width:100%;"><i class="fa-solid fa-heart"></i> Add to wishlist</button>
+            </div>
+        </form>
     </div>
 </div>

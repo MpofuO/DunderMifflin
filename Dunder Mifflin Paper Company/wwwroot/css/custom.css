@@ -1,7 +1,12 @@
-body {
-    background-color: #dceced !important;
+﻿body {
+    background-color: #f3f3f3;
 }
 
-main, footer {
-    padding: 10px;
+main{
+    margin-top: 40px;
+}
+
+hr {
+    margin-top:3px;
+    margin-bottom:3px;
 }

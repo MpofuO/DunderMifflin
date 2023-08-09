@@ -88,8 +88,11 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
         {
             Product product = repository.Product.GetById(id);
             if (product != null)
+            {
+                product.ProductType = repository.ProductType.FindAll().FirstOrDefault(p => p.ProductTypeID == product.ProductTypeID);
                 return View(product);
-            return View("List");
+            }
+                return View("List");
         }
 
         [HttpPost]
