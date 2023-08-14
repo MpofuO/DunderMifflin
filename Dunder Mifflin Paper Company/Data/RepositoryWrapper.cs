@@ -5,6 +5,7 @@
         private readonly AppDbContext context;
         private IOrderRepository _order;
         private IProductRepository _product;
+        private IFavouriteRepository _favourite;
         private IProductTypeRepository _productType;
 
         public RepositoryWrapper(AppDbContext context)
@@ -28,6 +29,15 @@
                 if (_product == null)
                     _product = new ProductRepository(context);
                 return _product;
+            }
+        }
+        public IFavouriteRepository Favourite
+        {
+            get
+            {
+                if (_favourite == null)
+                    _favourite = new FavouriteRepository(context);
+                return _favourite;
             }
         }
 

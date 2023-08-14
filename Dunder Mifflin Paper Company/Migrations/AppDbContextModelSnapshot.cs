@@ -22,6 +22,27 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Favourite", b =>
+                {
+                    b.Property<int>("FavouriteID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FavouriteID"));
+
+                    b.Property<string>("CustomerUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.HasKey("FavouriteID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("Favourites", (string)null);
+                });
+
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Order", b =>
                 {
                     b.Property<int>("OrderID")
@@ -105,6 +126,17 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.ToTable("ProductType", (string)null);
                 });
 
+            modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Favourite", b =>
+                {
+                    b.HasOne("Dunder_Mifflin_Paper_Company.Models.Product", "Product")
+                        .WithMany("Favourites")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Order", b =>
                 {
                     b.HasOne("Dunder_Mifflin_Paper_Company.Models.Product", "Product")
@@ -129,6 +161,8 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
 
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Product", b =>
                 {
+                    b.Navigation("Favourites");
+
                     b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618

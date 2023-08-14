@@ -9,6 +9,7 @@ namespace Dunder_Mifflin_Paper_Company.Data
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Favourite> Favourites { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -17,6 +18,7 @@ namespace Dunder_Mifflin_Paper_Company.Data
             modelBuilder.Entity<ProductType>().ToTable("ProductType");
             modelBuilder.Entity<Product>().ToTable("Product");
             modelBuilder.Entity<Order>().ToTable("Order");
+            modelBuilder.Entity<Favourite>().ToTable("Favourites");
         }
     }
 }

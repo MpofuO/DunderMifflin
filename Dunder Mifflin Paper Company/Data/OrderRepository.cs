@@ -9,15 +9,14 @@ namespace Dunder_Mifflin_Paper_Company.Data
         {
         }
 
-        public IEnumerable<Order> GetOrderWithProduct(int id)
+        public Order GetOrderWithProduct(int id)
         {
-            return context.Set<Order>().Where(order=>order.OrderID == id).Include(order => order.Product);
+            return context.Orders.Include(order => order.Product).FirstOrDefault(order=>order.OrderID == id);
         }
 
         public IEnumerable<Order> GetUserOrdersWithProduct(string UserName)
         {
-            return context.Set<Order>().Where(order=>order.CustomerUserName == UserName)
-                .Include(order => order.Product);
+            return context.Orders.Include(order => order.Product).Where(order=>order.CustomerUserName == UserName);
         }
     }
 }
