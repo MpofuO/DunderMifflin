@@ -19,15 +19,21 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
         public IActionResult List(string id = "all")//'all' is for salesperson, 'incart' is for Cart, 'isplaced' is for placed orders
         {
             IEnumerable<Order> list;
-            if (id == "isplaced")
-                list = repository.Order.FindByCondition(order => order.isPlaced
-                                                           && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
-            else if (id == "incart")
-                list = repository.Order.FindByCondition(order => !order.isPlaced
-                                                           && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
-            else if (id == "history")
-                list = repository.Order.FindByCondition(order => order.ProcessedDate != default
-                                                           && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
+
+            if (!User.IsInRole("Sales"))
+            {
+                if (id == "isplaced")
+                    list = repository.Order.FindByCondition(order => order.isPlaced
+                                                               && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
+                else if (id == "incart")
+                    list = repository.Order.FindByCondition(order => !order.isPlaced
+                                                               && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
+                else if (id == "history")
+                    list = repository.Order.FindByCondition(order => order.ProcessedDate != default
+                                                               && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
+                else
+                    list = default;
+            }
             else
                 list = repository.Order.FindAll();
 

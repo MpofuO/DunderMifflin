@@ -1,26 +1,26 @@
-﻿@model Product
+﻿@model ProductDetailsViewModel
 
 @{
     ViewData["Title"] = "Product Details";
 }
 
 <p>
-    Category: <a asp-action="List" asp-route-id="@Model.ProductType.ProductTypeName.ToLower()">@Model.ProductType.ProductTypeName</a>
+    Category: <a asp-action="List" asp-route-id="@Model.Product.ProductType.ProductTypeName.ToLower()">@Model.Product.ProductType.ProductTypeName</a>
 </p>
 <div class="row mb-5">
     <div class="row col col-md-8 bg-white me-3">
         <div class="col-md-6 me-3 d-flex align-content-center" style="flex-wrap:wrap;">
-            <img src="/images/dundermifflin.png" alt="@Model.Name" style="width: 100%; border: thin solid #c7c7c7;">
+            <img src="/images/dundermifflin.png" alt="@Model.Product.Name" style="width: 100%; border: thin solid #c7c7c7;">
         </div>
 
         <div class="col-md-5 me-1" style="height:fit-content;">
             <div class="px-1 py-1 mb-1 my-auto">
-                <h4>@Model.Name</h4>
-                <p style="">@Model.Description</p>
+                <h4>@Model.Product.Name</h4>
+                <p style="">@Model.Product.Description</p>
                 <p style="font-size:small;"><i class="fa-regular fa-star"></i> No Rating</p>
                 <hr />
                 <p class="my-0 py-0">
-                    <strong>@(Model.InStock ? "In stock" : "Out of stock")</strong>
+                    <strong>@(Model.Product.InStock ? "In stock" : "Out of stock")</strong>
                 </p>
                 <hr />
                 <ul style="font-size:smaller; margin-left:-20px; margin-top:10%;">
@@ -31,15 +31,18 @@
         </div>
     </div>
     <div class="col col-md-4 bg-white" style="height:fit-content; width:30%;">
-        <h2 class="mb-0">@($"R{Model.Price}")</h2>
+        <h2 class="mb-0">@($"R{Model.Product.Price}")</h2>
         <p class="mb-1" style="font-size:small;"><i class="fa-solid fa-check text-success"></i> Eligible for cash on delivery</p>
         <p class="mb-3" style="font-size:small;"><i class="fa-solid fa-check text-success"></i> Free delivery for orders at R950 or more</p>
-        <form asp-action="AddToCart" asp-route-productId="@Model.ProductID" method="post" class="mb-2">
+        <form asp-action="AddToCart" asp-route-productId="@Model.Product.ProductID" method="post" class="mb-2">
             <div class="">
                 <button class="btn btn-success" type="submit" style="width:100%;">+<i class="fa-solid fa-cart-shopping"></i> Add to cart</button>
             </div>
             <div class="my-2">
-                <button class="btn btn-outline-secondary" style="width:100%;"><i class="fa-solid fa-heart"></i> Add to wishlist</button>
+                <a asp-controller="Favourite" asp-action="Add" asp-route-productID="@Model.Product.ProductID"
+                   class="btn btn-outline-secondary" style="width:100%;">
+                    <i class="fa-solid fa-heart @(Model.isFavourite?"text-danger":"")"></i> Add to wishlist
+                </a>
             </div>
         </form>
     </div>

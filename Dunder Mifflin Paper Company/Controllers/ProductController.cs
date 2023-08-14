@@ -90,9 +90,13 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             if (product != null)
             {
                 product.ProductType = repository.ProductType.FindAll().FirstOrDefault(p => p.ProductTypeID == product.ProductTypeID);
-                return View(product);
+                return View(new ProductDetailsViewModel
+                {
+                    Product = product,
+                    isFavourite = User.Identity.IsAuthenticated ? repository.Favourite.FindAll().Select(f => f.ProductID).Contains(id) : false
+                });
             }
-                return View("List");
+            return View("List");
         }
 
         [HttpPost]
