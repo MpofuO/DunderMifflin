@@ -93,7 +93,8 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                 return View(new ProductDetailsViewModel
                 {
                     Product = product,
-                    isFavourite = User.Identity.IsAuthenticated ? repository.Favourite.FindAll().Select(f => f.ProductID).Contains(id) : false
+                    isFavourite = User.Identity.IsAuthenticated ? repository.Favourite.GetUserFavouritesWithProduct(User.Identity.Name)
+                    .Select(f => f.ProductID).Contains(id) : false
                 });
             }
             return View("List");

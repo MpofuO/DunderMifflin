@@ -11,7 +11,8 @@
     {
         <div class="row m-3 bg-white  d-flex justify-content-between">
             <div class="col-md-8 me-1">
-                <a>
+                <a asp-controller="Product" asp-action="Details" asp-route-id="@favourite.ProductID"
+                style="color:black; text-decoration:none;">
                     <div class="row">
                         <div class="col-md-3 me-1 d-flex align-content-center">
                             <img src="/images/dundermifflin.png" class="m-1" alt="@favourite.Product.Name" style="width: 100%;">
