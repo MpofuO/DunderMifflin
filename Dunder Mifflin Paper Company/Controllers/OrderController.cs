@@ -20,22 +20,18 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
         {
             IEnumerable<Order> list;
 
-            if (!User.IsInRole("Sales"))
+            if (User.IsInRole("Customer"))
             {
                 if (id == "isplaced")
                     list = repository.Order.FindByCondition(order => order.isPlaced
                                                                && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
-                else if (id == "incart")
-                    list = repository.Order.FindByCondition(order => !order.isPlaced
-                                                               && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
                 else if (id == "history")
-                    list = repository.Order.FindByCondition(order => order.ProcessedDate != default
-                                                               && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
+                    list = repository.Order.FindByCondition(order => order.isProcessed && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
                 else
                     list = default;
             }
             else
-                list = repository.Order.FindAll();
+                list = repository.Order.FindByCondition(order=>order.isPlaced);
 
             return View(list);
         }
@@ -47,24 +43,10 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                 return View(order);
             return View("List");
         }
-        [HttpGet]
-        [Authorize(Roles = "Customer")]
-        public IActionResult Add()
-        {
-            return View("Update", new Order());
-        }
-        [HttpGet]
-        [Authorize(Roles = "Customer")]
-        public IActionResult Update(int id)
-        {
-            Order order = repository.Order.GetById(id);
-            if (order != null)
-                return View(order);
-            return View("List");
-        }
+
         [HttpPost]
         [Authorize(Roles = "Customer")]
-        public IActionResult Update(Order order)
+        public IActionResult Add(Order order)
         {
             if (ModelState.IsValid)
             {

@@ -38,8 +38,11 @@
                         </li>
                         @if (User.IsInRole("Customer") || User.IsInRole("Sales"))
                         {
+                            string id = User.IsInRole("Customer") ? "isplaced" : "all";
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Order" asp-action="Index">Orders</a>
+                                <a class="nav-link" asp-controller="Order" asp-action="Index" asp-route-id="@id">
+                                    Orders
+                                </a>
                             </li>
                         }
                     }

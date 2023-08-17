@@ -30,5 +30,6 @@ namespace Dunder_Mifflin_Paper_Company.Models
         public ProductType ProductType { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<Favourite> Favourites { get; set; }
+        public ICollection<CartProduct> CartProducts { get; set; }
     }
 }

@@ -6,6 +6,7 @@
         private IOrderRepository _order;
         private IProductRepository _product;
         private IFavouriteRepository _favourite;
+        private ICartProductRepository _cartProduct;
         private IProductTypeRepository _productType;
 
         public RepositoryWrapper(AppDbContext context)
@@ -29,6 +30,15 @@
                 if (_product == null)
                     _product = new ProductRepository(context);
                 return _product;
+            }
+        }
+        public ICartProductRepository CartProduct
+        {
+            get
+            {
+                if (_cartProduct == null)
+                    _cartProduct = new CartProductRepository(context);
+                return _cartProduct;
             }
         }
         public IFavouriteRepository Favourite

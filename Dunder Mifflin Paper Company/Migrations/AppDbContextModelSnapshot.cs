@@ -22,6 +22,22 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.CartProduct", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CustomerUserName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ProductQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductID", "CustomerUserName");
+
+                    b.ToTable("CartProduct", (string)null);
+                });
+
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Favourite", b =>
                 {
                     b.Property<int>("FavouriteID")
@@ -51,6 +67,9 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
 
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("CustomerUserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -60,21 +79,10 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.Property<DateTime>("ProcessedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductQuantity")
-                        .HasColumnType("int");
-
                     b.Property<bool>("isApproved")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("isPlaced")
-                        .HasColumnType("bit");
-
                     b.HasKey("OrderID");
-
-                    b.HasIndex("ProductID");
 
                     b.ToTable("Order", (string)null);
                 });
@@ -126,10 +134,25 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.ToTable("ProductType", (string)null);
                 });
 
-            modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Favourite", b =>
+            modelBuilder.Entity("OrderProduct", b =>
+                {
+                    b.Property<int>("OrdersOrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsProductID")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrdersOrderID", "ProductsProductID");
+
+                    b.HasIndex("ProductsProductID");
+
+                    b.ToTable("OrderProduct");
+                });
+
+            modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.CartProduct", b =>
                 {
                     b.HasOne("Dunder_Mifflin_Paper_Company.Models.Product", "Product")
-                        .WithMany("Favourites")
+                        .WithMany("CartProducts")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -137,10 +160,10 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Order", b =>
+            modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Favourite", b =>
                 {
                     b.HasOne("Dunder_Mifflin_Paper_Company.Models.Product", "Product")
-                        .WithMany("Orders")
+                        .WithMany("Favourites")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -159,11 +182,26 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.Navigation("ProductType");
                 });
 
+            modelBuilder.Entity("OrderProduct", b =>
+                {
+                    b.HasOne("Dunder_Mifflin_Paper_Company.Models.Order", null)
+                        .WithMany()
+                        .HasForeignKey("OrdersOrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dunder_Mifflin_Paper_Company.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Product", b =>
                 {
-                    b.Navigation("Favourites");
+                    b.Navigation("CartProducts");
 
-                    b.Navigation("Orders");
+                    b.Navigation("Favourites");
                 });
 #pragma warning restore 612, 618
         }

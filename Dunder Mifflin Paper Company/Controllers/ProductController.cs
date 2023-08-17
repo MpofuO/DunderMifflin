@@ -51,37 +51,6 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             return View("Update", new Product());
         }
 
-        [HttpPost]
-        [Authorize(Roles = "Customer")]
-        public IActionResult AddToCart(int productId)
-        {
-            var product = repository.Product.GetById(productId);
-            if (product.InStock)
-            {
-                var order = repository.Order.FindAll().FirstOrDefault(
-                    order => order.ProductID == productId && order.CustomerUserName == User.Identity.Name && !order.isPlaced
-                    );
-                if (order != null)
-                    order.ProductQuantity++;
-                else
-                {
-                    order = new Order
-                    {
-                        ProductID = productId,
-                        ProductQuantity = 1,
-                        CustomerUserName = User.Identity.Name,
-                    };
-                }
-                repository.Order.Update(order);
-                repository.Save();
-                TempData["Message"] = order.ProductQuantity > 1 ? "Product was already in cart and has been updated" : "Product added to cart";
-            }
-            else
-                ModelState.AddModelError("", "This product is currently out of stock");
-
-            return RedirectToAction("Details", new { id = productId });
-        }
-
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Details(int id)

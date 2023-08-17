@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Cart\" />
     <Folder Include="Views\ProductType\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
 
   <ItemGroup>
