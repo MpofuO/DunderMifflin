@@ -2,11 +2,58 @@
     background-color: #f3f3f3;
 }
 
-main{
+main {
     margin-top: 40px;
 }
 
 hr {
-    margin-top:3px;
-    margin-bottom:3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
+
+.btn-group button {
+    border: thin solid grey;
+    cursor: pointer;
+    height: 25px;
+    background-color: white;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.increment {
+    border-radius: 0 20px 20px 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .increment:hover {
+        background-color: lightgray;
+        color: dimgrey;
+    }
+
+.decrement {
+    border-radius: 20px 0 0 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .decrement:hover {
+        background-color: lightgrey;
+        color:dimgray;
+    }
+
+.cart-button {
+    font-size: small;
+    background-color: white;
+    color: grey;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .cart-button:hover {
+        background-color: lightgrey;
+        color: #333333;
+    }
+
+        .cart-button:hover i.fa-heart {
+            color: deeppink;
+        }

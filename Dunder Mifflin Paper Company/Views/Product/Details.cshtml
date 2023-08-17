@@ -34,14 +34,14 @@
         <h2 class="mb-0">@($"R{Model.Product.Price}")</h2>
         <p class="mb-1" style="font-size:small;"><i class="fa-solid fa-check text-success"></i> Eligible for cash on delivery</p>
         <p class="mb-3" style="font-size:small;"><i class="fa-solid fa-check text-success"></i> Free delivery for orders at R950 or more</p>
-        <form asp-action="AddToCart" asp-route-productId="@Model.Product.ProductID" method="post" class="mb-2">
+        <form asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Product.ProductID" method="post" class="mb-2">
             <div class="">
                 <button class="btn btn-success" type="submit" style="width:100%;">+<i class="fa-solid fa-cart-shopping"></i> Add to cart</button>
             </div>
             <div class="my-2">
                 <a asp-controller="Favourite" asp-action="Add" asp-route-productID="@Model.Product.ProductID"
-                   class="btn btn-outline-secondary" style="width:100%;">
-                    <i class="fa-solid fa-heart @(Model.isFavourite?"text-danger":"")"></i> Add to wishlist
+                   class="btn btn-outline-secondary cart-button" style="width:100%;font-size:initial">
+                    <i class="fa-solid fa-heart @(Model.isFavourite?"text-danger":"")"></i> Add@(Model.isFavourite ? "ed" : "") to wishlist
                 </a>
             </div>
         </form>

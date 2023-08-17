@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Dunder_Mifflin_Paper_Company.Controllers
 {
-    [Authorize(Roles ="Customer")]
+    [Authorize(Roles = "Customer")]
     public class CartController : Controller
     {
         private readonly IRepositoryWrapper repository;
@@ -15,10 +15,9 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             repository = _repository;
         }
 
-        public IActionResult List()
+        public IActionResult Index()
         {
-            return View(repository.Order.FindByCondition(order => !order.isPlaced
-                                                               && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower()));
+            return View(repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name));
         }
 
         [HttpPost]
@@ -30,24 +29,39 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                 var cartProduct = repository.CartProduct.GetCartProductWithProduct(productId, User.Identity.Name);
 
                 if (cartProduct != null)
+                {
                     cartProduct.ProductQuantity++;
+                    repository.CartProduct.Update(cartProduct);
+                }
                 else
                 {
-                    cartProduct = new CartProduct
-                    {
-                        ProductID = productId,
-                        ProductQuantity = 1,
-                        CustomerUserName = User.Identity.Name,
-                    };
+                    repository.CartProduct.Create(
+                        new CartProduct
+                        {
+                            ProductID = productId,
+                            ProductQuantity = 1,
+                            CustomerUserName = User.Identity.Name,
+                        });
                 }
-                repository.CartProduct.Update(cartProduct);
                 repository.Save();
-                TempData["Message"] = cartProduct.ProductQuantity > 1 ? "Product was already in cart and has been updated" : "Product added to cart";
+                TempData["Message"] = cartProduct != null ? "Product was already in cart and has been updated" : "Product added to cart";
             }
             else
                 ModelState.AddModelError("", "This product is currently out of stock");
 
-            return RedirectToAction("Details", new { id = productId });
+            return RedirectToAction("Details", "Product", new { id = productId });
+        }
+        public IActionResult Remove(int productID)
+        {
+            CartProduct cartProduct = repository.CartProduct.GetCartProductWithProduct(productID, User.Identity.Name);
+            if (cartProduct != null)
+            {
+                repository.CartProduct.Delete(cartProduct);
+                repository.Save();
+                TempData["Message"] = "Product removed from cart";
+            }
+
+            return RedirectToAction("List");
         }
     }
 }

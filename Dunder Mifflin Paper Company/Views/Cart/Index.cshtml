@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CartProduct>
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h4 class="ms-3">Shopping Cart</h4>
+
+<div class="row mt-4">
+    <div class="col-md-9">
+        @foreach (var product in Model)
+        {
+            <div class="row m-3 mt-0 me-0 bg-white d-flex pb-2">
+                <div class="col-md-8">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductID"
+                       style="color:black; text-decoration:none;">
+                        <div class="row">
+                            <div class="col-md-3 me-1 d-flex align-content-center">
+                                <img src="/images/dundermifflin.png" class="m-1" alt="@product.Product.Name" style="width: 100%;">
+                            </div>
+                            <div class="col-md-8 me-1 mt-3">
+                                <p class="lead">
+                                    @product.Product.Name
+                                </p>
+                                <p>
+                                    @(product.Product.InStock ? "In Stock" : "Out of Stock")
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <h4 class="text-end">
+                        @($"R {product.Product.Price}")
+                    </h4>
+                    <div class="btn-group d-flex justify-content-end mb-4">
+                        <button class="decrement">-</button>
+                        <button class="px-3" style="cursor:default;">@product.ProductQuantity</button>
+                        <button class="increment">+</button>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <a asp-controller="Favourite" asp-action="Remove" asp-route-productID="@product.ProductID"
+                           class="btn me-1 cart-button">
+                            <i class="fa-solid fa-trash"></i> Remove
+                        </a>
+                        <a asp-controller="Favourite" asp-action="Remove" asp-route-productID="@product.ProductID"
+                           class="btn cart-button">
+                            <i class="fa-solid fa-heart"></i> Move to List
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+    <div class="col-md-3 bg-white">
+    </div>
+</div>

@@ -32,7 +32,7 @@
                 <h3 class="text-end">
                     @($"R {favourite.Product.Price}")
                 </h3>
-                <form asp-action="AddToCart" asp-route-productId="@favourite.Product.ProductID" method="post" class="mt-4">
+                <form asp-controller="Cart" asp-action="Add" asp-route-productId="@favourite.Product.ProductID" method="post" class="mt-4">
                     <div class="d-flex justify-content-end">
                         <button class="btn btn-success me-1" type="submit">
                             +<i class="fa-solid fa-cart-shopping"></i> Add to cart
