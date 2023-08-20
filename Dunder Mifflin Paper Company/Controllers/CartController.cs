@@ -18,7 +18,6 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
         public IActionResult Index()
         {
-
             return View(repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name));
         }
 
