@@ -1,6 +1,7 @@
 ﻿using Dunder_Mifflin_Paper_Company.Data;
 using Dunder_Mifflin_Paper_Company.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -17,6 +18,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
         public IActionResult Index()
         {
+
             return View(repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name));
         }
 
@@ -58,10 +60,64 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             {
                 repository.CartProduct.Delete(cartProduct);
                 repository.Save();
-                TempData["Message"] = "Product removed from cart";
+                string action = (string)RouteData.Values["action"];
+                TempData["Message"] = action == "Remove" ? "Product removed from cart" : "Product moved to wishlist";
             }
 
-            return RedirectToAction("List");
+            return RedirectToAction("Index");
+        }
+        public IActionResult MoveToList(int productID)
+        {
+            var favourite = repository.Favourite.GetUserFavouritesWithProduct(User.Identity.Name).FirstOrDefault(f => f.ProductID == productID);
+            if (favourite is null)
+            {
+                repository.Favourite.Create(new Favourite
+                {
+                    CustomerUserName = User.Identity.Name,
+                    ProductID = productID
+                });
+                repository.Save();
+            }
+
+            return Remove(productID);
+        }
+        public IActionResult Increment(int productID)
+        {
+            var cartProduct = repository.CartProduct.GetCartProductWithProduct(productID, User.Identity.Name);
+
+            if (cartProduct != null)
+            {
+                int newQty = cartProduct.ProductQuantity + 1;
+                if (newQty < cartProduct.Product.Quantity)
+                {
+                    cartProduct.ProductQuantity++;
+                    repository.CartProduct.Update(cartProduct);
+                    repository.Save();
+                }
+                else
+                    TempData["Message"] = "Unable to increase the quantity due to limited stock";
+            }
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult Decrement(int productID)
+        {
+            var cartProduct = repository.CartProduct.GetCartProductWithProduct(productID, User.Identity.Name);
+
+            if (cartProduct != null)
+            {
+                int newQty = cartProduct.ProductQuantity - 1;
+                if (newQty > 0)
+                {
+                    cartProduct.ProductQuantity--;
+                    repository.CartProduct.Update(cartProduct);
+                    repository.Save();
+                }
+                else
+                    return RedirectToAction("Remove", new { productID = productID });
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

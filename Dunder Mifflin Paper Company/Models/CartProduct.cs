@@ -9,5 +9,6 @@ namespace Dunder_Mifflin_Paper_Company.Models
         public int ProductID { get; set; }
         public Product Product { get; set; }
         public int ProductQuantity { get; set; }
+        public decimal totalPrice => Product.Price * ProductQuantity;
     }
 }
