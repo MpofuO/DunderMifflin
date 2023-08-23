@@ -2,6 +2,7 @@
 using Dunder_Mifflin_Paper_Company.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 
@@ -22,16 +23,13 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
             if (User.IsInRole("Customer"))
             {
-                if (id == "isplaced")
-                    list = repository.Order.FindByCondition(order => order.isPlaced
-                                                               && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
-                else if (id == "history")
+                if (id == "history")
                     list = repository.Order.FindByCondition(order => order.isProcessed && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
                 else
-                    list = default;
+                    list = repository.Order.FindByCondition(order => order.isPlaced && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
             }
             else
-                list = repository.Order.FindByCondition(order=>order.isPlaced);
+                list = repository.Order.FindByCondition(order => order.isPlaced);
 
             return View(list);
         }
@@ -46,27 +44,21 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Customer")]
-        public IActionResult Add(Order order)
+        public IActionResult Add()
         {
-            if (ModelState.IsValid)
+            repository.Order.Create(new Order
             {
-                try
-                {
-                    if (order.OrderID == default)
-                    {
-                        order.PlacedDate = DateTime.Now;
-                        repository.Order.Create(order);
-                    }
-                    else
-                        repository.Order.Update(order);
-                    repository.Save();
-                }
-                catch
-                {
-                    ModelState.AddModelError("", "Unable to add or update order");
-                    return View(order);
-                }
-            }
+                Products = new Collection<CartProduct>(repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name).ToList()),
+                CustomerUserName = User.Identity.Name,
+                PlacedDate = DateTime.UtcNow
+
+            });
+
+            foreach (CartProduct p in repository.CartProduct.FindAll())
+                repository.CartProduct.Delete(p);
+
+            repository.Save();
+
             return View("List");
         }
         [HttpPost]
@@ -78,13 +70,19 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                 Order order = repository.Order.GetById(id);
                 if (order != null)
                 {
+                    foreach (var p in order.Products)
+                    {
+                        Product product = repository.Product.GetById(p.ProductID);
+                        product.Quantity = product.Quantity + p.PurchaseQuantity;
+                        repository.Product.Update(product);
+                    }
                     repository.Order.Delete(order);
                     repository.Save();
                 }
             }
             catch
             {
-                ModelState.AddModelError("", "Unable to delete the order");
+                ModelState.AddModelError("", "Unable to cancel the order");
             }
             return View("List");
         }
@@ -97,11 +95,23 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             if (order != null)
             {
                 if (processId == "approve")
+                {
+                    IEnumerable<CartProduct> products = repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name);
+                    foreach (var p in products)
+                    {
+                        Product product = repository.Product.GetById(p.ProductID);
+                        product.Quantity = product.Quantity - p.PurchaseQuantity;
+                        repository.Product.Update(product);
+                    }
+
                     order.isApproved = true;
+                }
                 else
                     order.isApproved = false;
 
-                order.ProcessedDate = DateTime.Now;
+                order.ProcessedDate = DateTime.UtcNow;
+                repository.Order.Update(order);
+                repository.Save();
             }
 
             return View("List");

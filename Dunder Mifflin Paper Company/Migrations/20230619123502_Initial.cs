@@ -56,7 +56,6 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     PlacedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ProcessedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     isApproved = table.Column<bool>(type: "bit", nullable: false),
-                    ProductQuantity = table.Column<int>(type: "int", nullable: false),
                     ProductID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

@@ -33,7 +33,7 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.Property<string>("CustomerUserName")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("ProductQuantity")
+                    b.Property<int>("PurchaseQuantity")
                         .HasColumnType("int");
 
                     b.HasKey("ProductID", "CustomerUserName");

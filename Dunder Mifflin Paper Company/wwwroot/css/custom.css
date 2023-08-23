@@ -11,6 +11,7 @@ hr {
     margin-bottom: 3px;
 }
 
+
 .btn-group button {
     border: thin solid grey;
     cursor: pointer;
@@ -38,7 +39,7 @@ hr {
 
     .decrement:hover {
         background-color: lightgrey;
-        color:dimgray;
+        color: dimgray;
     }
 
 .cart-button {

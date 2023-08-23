@@ -23,10 +23,6 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                 table: "Order");
 
             migrationBuilder.DropColumn(
-                name: "ProductQuantity",
-                table: "Order");
-
-            migrationBuilder.DropColumn(
                 name: "isPlaced",
                 table: "Order");
 
@@ -43,7 +39,7 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                 {
                     CustomerUserName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProductID = table.Column<int>(type: "int", nullable: false),
-                    ProductQuantity = table.Column<int>(type: "int", nullable: false)
+                    PurchaseQuantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -101,13 +97,6 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
 
             migrationBuilder.AddColumn<int>(
                 name: "ProductID",
-                table: "Order",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "ProductQuantity",
                 table: "Order",
                 type: "int",
                 nullable: false,

@@ -8,7 +8,9 @@ namespace Dunder_Mifflin_Paper_Company.Models
         public string CustomerUserName { get; set; }
         public int ProductID { get; set; }
         public Product Product { get; set; }
-        public int ProductQuantity { get; set; }
-        public decimal totalPrice => Product.Price * ProductQuantity;
+        public int PurchaseQuantity { get; set; }
+        public decimal totalPrice => Product.Price * PurchaseQuantity;
+
+        public ICollection<Order> Orders { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Dunder_Mifflin_Paper_Company.Models
         public bool isProcessed => ProcessedDate != default;
         public DateTime ProcessedDate { get; set; }
         public bool isApproved { get; set; }
-        public decimal Cost { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public decimal Cost => Products.Sum(p => p.totalPrice);
+        public ICollection<CartProduct> Products { get; set; }
     }
 }

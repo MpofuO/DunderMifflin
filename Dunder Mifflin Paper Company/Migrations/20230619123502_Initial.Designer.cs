@@ -45,7 +45,7 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductQuantity")
+                    b.Property<int>("PurchaseQuantity")
                         .HasColumnType("int");
 
                     b.Property<bool>("isApproved")

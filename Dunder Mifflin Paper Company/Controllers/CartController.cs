@@ -31,7 +31,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
                 if (cartProduct != null)
                 {
-                    cartProduct.ProductQuantity++;
+                    cartProduct.PurchaseQuantity++;
                     repository.CartProduct.Update(cartProduct);
                 }
                 else
@@ -40,7 +40,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                         new CartProduct
                         {
                             ProductID = productId,
-                            ProductQuantity = 1,
+                            PurchaseQuantity = 1,
                             CustomerUserName = User.Identity.Name,
                         });
                 }
@@ -86,10 +86,10 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
             if (cartProduct != null)
             {
-                int newQty = cartProduct.ProductQuantity + 1;
+                int newQty = cartProduct.PurchaseQuantity + 1;
                 if (newQty < cartProduct.Product.Quantity)
                 {
-                    cartProduct.ProductQuantity++;
+                    cartProduct.PurchaseQuantity++;
                     repository.CartProduct.Update(cartProduct);
                     repository.Save();
                 }
@@ -105,10 +105,10 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
             if (cartProduct != null)
             {
-                int newQty = cartProduct.ProductQuantity - 1;
+                int newQty = cartProduct.PurchaseQuantity - 1;
                 if (newQty > 0)
                 {
-                    cartProduct.ProductQuantity--;
+                    cartProduct.PurchaseQuantity--;
                     repository.CartProduct.Update(cartProduct);
                     repository.Save();
                 }

@@ -13,6 +13,49 @@
     <link rel="stylesheet" asp-href-include="/lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" asp-href-include="/lib/font-awesome/css/all.min.css" />
     <link rel="stylesheet" asp-href-include="/css/custom.css" />
+    <style>
+        a {
+            position: relative;
+            text-decoration: none;
+            padding: 0 10px;
+        }
+
+            a.nav-link:before,
+            a.nav-link:after {
+                content: "";
+                position: absolute;
+                height: 3px;
+                width: 0;
+                background-color: lightblue;
+                transition: 0.3s;
+            }
+
+            a:after {
+                left: 0;
+                margin-left: 10%;
+                bottom: 3px
+            }
+
+            a:before {
+                right: 0;
+                margin-right: 10%;
+                top: 3px
+            }
+
+            a:hover:after,
+            a:hover:before {
+                width: 80%;
+            }
+
+            a.nav-link.active:before,
+            a.nav-link.active:after {
+                content: "";
+                position: absolute;
+                height: 3px;
+                width: 80%;
+                background-color: lightblue;
+            }
+    </style>
 </head>
 <body>
     <header>
@@ -28,19 +71,19 @@
                 <ul class="navbar-nav me-auto">
                     @if ((User.Identity.IsAuthenticated && (!(User.IsInRole("CEO") || User.IsInRole("Manager"))) || !User.Identity.IsAuthenticated))
                     {
-                        <li class="nav-item">
-                            <a class="nav-link
+                        <li class="nav-item n-item">
+                            <a class="nav-link 
                         @(controller == "Home" && action == "Index" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link
+                        <li class="nav-item n-item">
+                            <a class="nav-link 
                         @(controller == "Product" ? "active" : "")" asp-controller="Product" asp-action="List" asp-route-id="all">Products</a>
                         </li>
                         @if (User.IsInRole("Customer") || User.IsInRole("Sales"))
                         {
                             string id = User.IsInRole("Customer") ? "isplaced" : "all";
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Order" asp-action="Index" asp-route-id="@id">
+                            <li class="nav-item n-item">
+                                <a class="nav-link " asp-controller="Order" asp-action="Index" asp-route-id="@id">
                                     Orders
                                 </a>
                             </li>
@@ -52,37 +95,39 @@
                     {
                         @if (User.IsInRole("CEO") || User.IsInRole("Manager"))
                         {
-                            <li class="nav-item me-2">
-                                <a class="nav-link
+                            <li class="nav-item me-2 n-item">
+                                <a class="nav-link 
                                 @(controller.StartsWith("Admin") ? "active" : "")" asp-controller="Admin" asp-action="Index">User Managenent</a>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item mx-2 d-flex align-content-center justify-content-center" style="flex-wrap:wrap;">
-                                <a class="nav-link btn d-flex align-content-center justify-content-center"
-                                   style="border-radius:100%;height:80%;width:96%;background-color:deeppink;flex-wrap:wrap;"
+                            <li class="mx-2 d-flex align-content-center justify-content-center" style="flex-wrap:wrap;">
+                                <a class="btn d-flex align-content-center justify-content-center"
+                                   style="border-radius:100%;height:80%;width:80%;background-color:deeppink;flex-wrap:wrap;"
                            asp-controller="Favourite" asp-action="List">
                                     <i class="fa-solid fa-heart text-white"></i>
                                 </a>
                             </li>
-                            <li class="nav-item me-2 d-flex align-content-center justify-content-center" style="flex-wrap:wrap;">
+                            <li class="me-2 d-flex align-content-center justify-content-center" style="flex-wrap:wrap;">
                                 @await Component.InvokeAsync("CartCount")
                             </li>
                         }
-                        <li class="nav-item me-1">
+                        <li class="nav-item me-1 n-item">
                             <form asp-controller="Account" asp-action="Logout" method="post">
-                                <button class="btn btn-link nav-link" type="submit">Log Out</button>
+                                <button class="btn bt nav-link " type="submit">Log Out</button>
                             </form>
                         </li>
                     }
                     else
                     {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                        <li class="nav-item n-item">
+                            <a class="nav-link   @(controller == "Account" && action == "Register" ? "active" : "")" 
+                            asp-controller="Account" asp-action="Register">Register</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                        <li class="nav-item n-item">
+                            <a class="nav-link   @(controller == "Account" && action == "Login" ? "active" : "")" 
+                            asp-controller="Account" asp-action="Login">Login</a>
                         </li>
                     }
                 </ul>

@@ -22,6 +22,24 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CartProductOrder", b =>
+                {
+                    b.Property<int>("OrdersOrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsProductID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductsCustomerUserName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("OrdersOrderID", "ProductsProductID", "ProductsCustomerUserName");
+
+                    b.HasIndex("ProductsProductID", "ProductsCustomerUserName");
+
+                    b.ToTable("CartProductOrder");
+                });
+
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.CartProduct", b =>
                 {
                     b.Property<int>("ProductID")
@@ -30,7 +48,7 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.Property<string>("CustomerUserName")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("ProductQuantity")
+                    b.Property<int>("PurchaseQuantity")
                         .HasColumnType("int");
 
                     b.HasKey("ProductID", "CustomerUserName");
@@ -66,9 +84,6 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
-
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("CustomerUserName")
                         .HasColumnType("nvarchar(max)");
@@ -134,19 +149,19 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.ToTable("ProductType", (string)null);
                 });
 
-            modelBuilder.Entity("OrderProduct", b =>
+            modelBuilder.Entity("CartProductOrder", b =>
                 {
-                    b.Property<int>("OrdersOrderID")
-                        .HasColumnType("int");
+                    b.HasOne("Dunder_Mifflin_Paper_Company.Models.Order", null)
+                        .WithMany()
+                        .HasForeignKey("OrdersOrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("ProductsProductID")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrdersOrderID", "ProductsProductID");
-
-                    b.HasIndex("ProductsProductID");
-
-                    b.ToTable("OrderProduct");
+                    b.HasOne("Dunder_Mifflin_Paper_Company.Models.CartProduct", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsProductID", "ProductsCustomerUserName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.CartProduct", b =>
@@ -180,21 +195,6 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                         .IsRequired();
 
                     b.Navigation("ProductType");
-                });
-
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.HasOne("Dunder_Mifflin_Paper_Company.Models.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersOrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Dunder_Mifflin_Paper_Company.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Product", b =>
