@@ -15,6 +15,7 @@ My goal is a website that features the following:
 - Good user experience by adding user friendly error messages and alerts
 
 *Goals not tagged with (implemented) may be partially implemented*
+
 *These goals are subject to change as I build the project and find new ideas to try out*
 
 ## Screenshots
