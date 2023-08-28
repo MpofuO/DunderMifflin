@@ -17,3 +17,5 @@ My goal is a website that features the following:
 *These goals are subject to change as I build the project and find new ideas to try out
 
 ## Screenshots
+
+https://github.com/MpofuO/DunderMifflin/blob/master/cart.png
