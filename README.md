@@ -1,7 +1,7 @@
 # DunderMifflin
-Dunder Mifflin Paper Company Website
+## Dunder Mifflin Paper Company Website
 
-Welcome to the official repository for the Dunder Mifflin Paper Company website! This project is a fictional representation of a paper company's online presence, created for personal practise purposes. The website allows users to explore various paper products and place orders. It is built using C# and ASP .NET Core MVC.
+Welcome to the official repository for the fictional Dunder Mifflin Paper Company website! This project is a fictional representation of a paper company's online presence, created for personal practise purposes. The website allows users to explore various paper products and place orders. Also allowing user and inventory management. It is built using C# and ASP .NET Core MVC.
 
 ## Feature Goals
 My goal is a website that features the following:
@@ -12,32 +12,35 @@ My goal is a website that features the following:
 - Customers should be able to place orders and view placed orders (implemented), cancel orders and view the order history
 - A CEO should be able to add a manager and a manager a salesperson
 - A salesperson should be able to process an order from the list of all placed orders
+- A salesperson shoul be able top add a product to inventory, edit the product (image, name, quantity, description)
 - Good user experience by adding user friendly error messages and alerts
 
-*Goals not tagged with (implemented) may be partially implemented*
 
-*These goals are subject to change as I build the project and find new ideas to try out*
+Note: *Goals not tagged with (implemented) may be partially implemented*
+
+Note: *These goals are subject to change as I build the project and find new ideas to try out*
+
 
 ## Screenshots
 The following images show some pages of the website's current status
 
 
 
-Homepage:
+### Homepage:
 ![Home](home.png)
 
 
-Products:
+### Products:
 ![Products](products.png)
 
 
-Product Details:
+### Product Details:
 ![Product Details](product-details.png)
 
 
-Wishlist:
+### Wishlist:
 ![Wishlist](wishlist.png)
 
 
-Shopping Cart:
+### Shopping Cart:
 ![Cart](cart.png)
