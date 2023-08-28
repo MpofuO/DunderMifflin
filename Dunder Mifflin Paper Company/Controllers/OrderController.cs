@@ -17,19 +17,19 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             repository = _repository;
         }
         [HttpGet]
-        public IActionResult List(string id = "all")//'all' is for salesperson, 'incart' is for Cart, 'isplaced' is for placed orders
+        public IActionResult List(string id = "all")
         {
             IEnumerable<Order> list;
 
             if (User.IsInRole("Customer"))
             {
                 if (id == "history")
-                    list = repository.Order.FindByCondition(order => order.isProcessed && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
+                    list = repository.Order.GetUserOrdersWithProducts(User.Identity.Name).Where(order => order.isProcessed);
                 else
-                    list = repository.Order.FindByCondition(order => order.isPlaced && User.Identity.Name.ToLower() == order.CustomerUserName.ToLower());
+                    list = repository.Order.GetUserOrdersWithProducts(User.Identity.Name).Where(order => order.isPlaced);
             }
             else
-                list = repository.Order.FindByCondition(order => order.isPlaced);
+                list = repository.Order.FindAll().Where(order => order.isPlaced);
 
             return View(list);
         }
@@ -46,20 +46,25 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
         [Authorize(Roles = "Customer")]
         public IActionResult Add()
         {
+            List<CartProduct> cartProducts = repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name).Where(cp => !cp.isOrdered).ToList();
+
             repository.Order.Create(new Order
             {
-                Products = new Collection<CartProduct>(repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name).ToList()),
+                Products = new Collection<CartProduct>(cartProducts),
                 CustomerUserName = User.Identity.Name,
                 PlacedDate = DateTime.UtcNow
 
             });
 
-            foreach (CartProduct p in repository.CartProduct.FindAll())
-                repository.CartProduct.Delete(p);
+            foreach (CartProduct cp in cartProducts)
+            {
+                cp.isOrdered = true;
+                repository.CartProduct.Update(cp);
+            }
 
             repository.Save();
 
-            return View("List");
+            return RedirectToAction("List", "Product", new { id = "all" });
         }
         [HttpPost]
         [Authorize(Roles = "Customer")]
@@ -70,12 +75,6 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                 Order order = repository.Order.GetById(id);
                 if (order != null)
                 {
-                    foreach (var p in order.Products)
-                    {
-                        Product product = repository.Product.GetById(p.ProductID);
-                        product.Quantity = product.Quantity + p.PurchaseQuantity;
-                        repository.Product.Update(product);
-                    }
                     repository.Order.Delete(order);
                     repository.Save();
                 }

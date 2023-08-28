@@ -51,6 +51,9 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.Property<int>("PurchaseQuantity")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isOrdered")
+                        .HasColumnType("bit");
+
                     b.HasKey("ProductID", "CustomerUserName");
 
                     b.ToTable("CartProduct", (string)null);

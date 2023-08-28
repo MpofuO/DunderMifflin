@@ -13,7 +13,7 @@ namespace Dunder_Mifflin_Paper_Company.Components
 
         public IViewComponentResult Invoke()
         {
-            return View(_repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name).Count());
+            return View(_repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name).Where(cp=>!cp.isOrdered).Count());
         }
     }
 }

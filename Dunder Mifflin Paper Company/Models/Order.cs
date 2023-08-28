@@ -5,6 +5,7 @@ namespace Dunder_Mifflin_Paper_Company.Models
     public class Order
     {
         public int OrderID { get; set; }
+        public string OrderNumber => $"{PlacedDate.Day}{OrderID}{PlacedDate.Month}{PlacedDate.Hour}";
         public string CustomerUserName { get; set; }
         public bool isPlaced => PlacedDate != default && ProcessedDate == default;
         public DateTime PlacedDate { get; set; }

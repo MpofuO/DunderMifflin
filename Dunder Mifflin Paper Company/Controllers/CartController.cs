@@ -18,7 +18,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
         public IActionResult Index()
         {
-            return View(repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name));
+            return View(repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name).Where(cp=>!cp.isOrdered));
         }
 
         [HttpPost]
@@ -65,7 +65,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
             return RedirectToAction("Index");
         }
-        public IActionResult MoveToList(int productID)
+        public IActionResult AddToList(int productID)
         {
             var favourite = repository.Favourite.GetUserFavouritesWithProduct(User.Identity.Name).FirstOrDefault(f => f.ProductID == productID);
             if (favourite is null)
@@ -78,7 +78,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                 repository.Save();
             }
 
-            return Remove(productID);
+            return RedirectToAction("Index");
         }
         public IActionResult Increment(int productID)
         {
