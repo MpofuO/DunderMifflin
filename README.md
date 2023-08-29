@@ -3,7 +3,7 @@
 
 Welcome to the official repository for the fictional Dunder Mifflin Paper Company website! This project is a fictional representation of a paper company's online presence, created for personal practise purposes. The website allows users to explore various paper products and place orders. Also allowing user and inventory management. It is built using C# and ASP .NET Core MVC.
 
-This application has seed data for users can be ran and tested on the go. Please note that the project is incomplete and some functionality will not be available.
+This application has seed data for users thus can be ran and tested on the go. Please note that the project is incomplete and some functionality will not be available.
 
 ## Feature Goals
 My goal is a website that features the following:
