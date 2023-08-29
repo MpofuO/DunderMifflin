@@ -54,5 +54,4 @@ The following images show some pages of the website's current status
 Please feel to contact me for more information about me or the project or about any opportunities you may have for me on any of the following:
 
 -Email: mpofuoliver1109@gmail.com
-
 -LinkedIn: https://www.linkedin.com/in/olivermpofu/
