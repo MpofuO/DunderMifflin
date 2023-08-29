@@ -11,7 +11,7 @@ namespace Dunder_Mifflin_Paper_Company.Data
 
         public CartProduct GetCartProductWithProduct(int productId, string UserName)
         {
-            return context.CartProducts.Include(cp => cp.Product).FirstOrDefault(cp => cp.ProductID == productId && cp.CustomerUserName == UserName);
+            return context.CartProducts.Include(cp => cp.Product).FirstOrDefault(cp => cp.ProductID == productId && cp.CustomerUserName == UserName && !cp.isOrdered);
         }
 
         public IEnumerable<CartProduct> GetUserCartProductsWithProducts(string UserName)

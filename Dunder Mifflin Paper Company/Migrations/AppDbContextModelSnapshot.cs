@@ -27,26 +27,29 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.Property<int>("OrdersOrderID")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductsProductID")
+                    b.Property<int>("ProductsCartProductID")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProductsCustomerUserName")
-                        .HasColumnType("nvarchar(450)");
+                    b.HasKey("OrdersOrderID", "ProductsCartProductID");
 
-                    b.HasKey("OrdersOrderID", "ProductsProductID", "ProductsCustomerUserName");
-
-                    b.HasIndex("ProductsProductID", "ProductsCustomerUserName");
+                    b.HasIndex("ProductsCartProductID");
 
                     b.ToTable("CartProductOrder");
                 });
 
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.CartProduct", b =>
                 {
-                    b.Property<int>("ProductID")
+                    b.Property<int>("CartProductID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartProductID"));
+
                     b.Property<string>("CustomerUserName")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
 
                     b.Property<int>("PurchaseQuantity")
                         .HasColumnType("int");
@@ -54,7 +57,9 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.Property<bool>("isOrdered")
                         .HasColumnType("bit");
 
-                    b.HasKey("ProductID", "CustomerUserName");
+                    b.HasKey("CartProductID");
+
+                    b.HasIndex("ProductID");
 
                     b.ToTable("CartProduct", (string)null);
                 });
@@ -162,7 +167,7 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
 
                     b.HasOne("Dunder_Mifflin_Paper_Company.Models.CartProduct", null)
                         .WithMany()
-                        .HasForeignKey("ProductsProductID", "ProductsCustomerUserName")
+                        .HasForeignKey("ProductsCartProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

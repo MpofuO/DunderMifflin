@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dunder_Mifflin_Paper_Company.Models
 {
-    [PrimaryKey("ProductID", "CustomerUserName")]
     public class CartProduct
     {
+        [Key]
+        public int CartProductID { get; set; }
         public string CustomerUserName { get; set; }
         public int ProductID { get; set; }
         public Product Product { get; set; }
