@@ -11,6 +11,7 @@ namespace Dunder_Mifflin_Paper_Company.Data
         public DbSet<CartProduct> CartProducts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Favourite> Favourites { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,7 +21,8 @@ namespace Dunder_Mifflin_Paper_Company.Data
             modelBuilder.Entity<Product>().ToTable("Product");
             modelBuilder.Entity<CartProduct>().ToTable("CartProduct");
             modelBuilder.Entity<Order>().ToTable("Order");
-            modelBuilder.Entity<Favourite>().ToTable("Favourites");
+            modelBuilder.Entity<Favourite>().ToTable("Favourite");
+            modelBuilder.Entity<Address>().ToTable("Address");
         }
     }
 }

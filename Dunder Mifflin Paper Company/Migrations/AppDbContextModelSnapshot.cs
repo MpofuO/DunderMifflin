@@ -37,6 +37,46 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.ToTable("CartProductOrder");
                 });
 
+            modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Address", b =>
+                {
+                    b.Property<int>("AddressID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressID"));
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CustomerUserName")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HouseNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surburb")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AddressID");
+
+                    b.ToTable("Address", (string)null);
+                });
+
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.CartProduct", b =>
                 {
                     b.Property<int>("CartProductID")
@@ -82,7 +122,7 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("Favourites", (string)null);
+                    b.ToTable("Favourite", (string)null);
                 });
 
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Order", b =>
@@ -92,6 +132,9 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
+
+                    b.Property<int>("AddressID")
+                        .HasColumnType("int");
 
                     b.Property<string>("CustomerUserName")
                         .HasColumnType("nvarchar(max)");
@@ -106,6 +149,8 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("OrderID");
+
+                    b.HasIndex("AddressID");
 
                     b.ToTable("Order", (string)null);
                 });
@@ -194,6 +239,17 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Order", b =>
+                {
+                    b.HasOne("Dunder_Mifflin_Paper_Company.Models.Address", "Address")
+                        .WithMany("Orders")
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Product", b =>
                 {
                     b.HasOne("Dunder_Mifflin_Paper_Company.Models.ProductType", "ProductType")
@@ -203,6 +259,11 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                         .IsRequired();
 
                     b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Address", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("Dunder_Mifflin_Paper_Company.Models.Product", b =>

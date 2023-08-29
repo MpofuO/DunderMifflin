@@ -14,5 +14,8 @@ namespace Dunder_Mifflin_Paper_Company.Models
         public bool isApproved { get; set; }
         public decimal Cost => Products.Sum(p => p.totalPrice);
         public ICollection<CartProduct> Products { get; set; }
+        
+        public int AddressID { get; set; }
+        public Address Address { get; set; }
     }
 }
