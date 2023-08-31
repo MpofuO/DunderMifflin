@@ -11,6 +11,22 @@ hr {
     margin-bottom: 3px;
 }
 
+#disappearingAlert {
+    position: absolute;
+    z-index: 9999;
+    left: 30%;
+    right: 30%;
+    margin-top: -35px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.alert {
+    padding: 10px;
+    background-color: lightgreen;
+    display: flex;
+    width: fit-content;
+}
 
 .btn-group button {
     border: thin solid grey;

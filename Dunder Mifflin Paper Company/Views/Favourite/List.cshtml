@@ -4,6 +4,18 @@
     ViewData["Title"] = "My WishList";
 }
 
+@if (TempData["Message"] != null)
+{
+    <div class="d-flex justify-content-center" id="disappearingAlert">
+        <div class="alert alert-dismissible" role="alert">
+            @TempData["Message"]
+            <button type="button" class="ms-3 p-0 btn-close" style="position: inherit;padding: 0;align-self: center;"
+                    data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+    </div>
+}
+
 <h3 class="ms-3">Wish List</h3>
 
 <div class="mt-4">
@@ -12,7 +24,7 @@
         <div class="row m-3 bg-white  d-flex justify-content-between">
             <div class="col-md-8 me-1">
                 <a asp-controller="Product" asp-action="Details" asp-route-id="@favourite.ProductID"
-                style="color:black; text-decoration:none;">
+                   style="color:black; text-decoration:none;">
                     <div class="row">
                         <div class="col-md-3 me-1 d-flex align-content-center">
                             <img src="/images/dundermifflin.png" class="m-1" alt="@favourite.Product.Name" style="width: 100%;">

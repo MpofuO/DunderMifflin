@@ -18,11 +18,11 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
         public IActionResult Index()
         {
-            return View(repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name).Where(cp=>!cp.isOrdered));
+            return View(repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name).Where(cp => !cp.isOrdered));
         }
 
         [HttpPost]
-        public IActionResult Add(int productId)
+        public IActionResult Add(int productId, string source)
         {
             var product = repository.Product.GetById(productId);
             if (product.InStock)
@@ -50,7 +50,8 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             else
                 ModelState.AddModelError("", "This product is currently out of stock");
 
-            return RedirectToAction("Details", "Product", new { id = productId });
+            return source == "Details" ? RedirectToAction("Details", "Product", new { id = productId })
+                : RedirectToAction("List", "Favourites");
         }
         public IActionResult Remove(int productID)
         {

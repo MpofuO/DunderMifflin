@@ -72,11 +72,11 @@
                     @if ((User.Identity.IsAuthenticated && (!(User.IsInRole("CEO") || User.IsInRole("Manager"))) || !User.Identity.IsAuthenticated))
                     {
                         <li class="nav-item n-item">
-                            <a class="nav-link 
+                            <a class="nav-link
                         @(controller == "Home" && action == "Index" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item n-item">
-                            <a class="nav-link 
+                            <a class="nav-link
                         @(controller == "Product" ? "active" : "")" asp-controller="Product" asp-action="List" asp-route-id="all">Products</a>
                         </li>
                         @if (User.IsInRole("Customer") || User.IsInRole("Sales"))
@@ -95,7 +95,7 @@
                         @if (User.IsInRole("CEO") || User.IsInRole("Manager"))
                         {
                             <li class="nav-item me-2 n-item">
-                                <a class="nav-link 
+                                <a class="nav-link
                                 @(controller.StartsWith("Admin") ? "active" : "")" asp-controller="Admin" asp-action="Index">User Managenent</a>
                             </li>
                         }
@@ -121,12 +121,12 @@
                     else
                     {
                         <li class="nav-item n-item">
-                            <a class="nav-link   @(controller == "Account" && action == "Register" ? "active" : "")" 
-                            asp-controller="Account" asp-action="Register">Register</a>
+                            <a class="nav-link   @(controller == "Account" && action == "Register" ? "active" : "")"
+                           asp-controller="Account" asp-action="Register">Register</a>
                         </li>
                         <li class="nav-item n-item">
-                            <a class="nav-link   @(controller == "Account" && action == "Login" ? "active" : "")" 
-                            asp-controller="Account" asp-action="Login">Login</a>
+                            <a class="nav-link   @(controller == "Account" && action == "Login" ? "active" : "")"
+                           asp-controller="Account" asp-action="Login">Login</a>
                         </li>
                     }
                 </ul>
@@ -144,6 +144,17 @@
         </div>
     </footer>
     <script asp-src-include="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script asp-src-include="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var alertDiv = document.getElementById("disappearingAlert");
 
+            setTimeout(function () {
+                alertDiv.style.opacity = "1"; // Make the alert appear
+            }, 1000);
+        });
+
+    </script>
 </body>
 </html>

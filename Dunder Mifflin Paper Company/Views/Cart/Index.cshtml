@@ -4,6 +4,18 @@
     ViewData["Title"] = "Cart";
 }
 
+@if (TempData["Message"] != null)
+{
+    <div class="d-flex justify-content-center" id="disappearingAlert">
+        <div class="alert alert-dismissible" role="alert">
+            @TempData["Message"]
+            <button type="button" class="ms-3 p-0 btn-close" style="position: inherit;padding: 0;align-self: center;"
+                    data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+    </div>
+}
+
 <h4 class="ms-3">Shopping Cart</h4>
 
 <div class="row mt-4">
@@ -67,7 +79,7 @@
                 R <span id="total">@Model.Sum(cartProducts => cartProducts.totalPrice)</span>
             </h4>
         </div>
-        <form asp-action="Add" asp-controller="Order" method="post">
+        <form asp-action="Add" asp-controller="Order" method="post"> 
             <button class="btn btn-success d-grid w-100" type="submit">Place Order</button>
         </form>
 
