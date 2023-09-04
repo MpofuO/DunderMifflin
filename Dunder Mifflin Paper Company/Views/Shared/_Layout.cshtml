@@ -149,21 +149,18 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var alertDiv = document.getElementById("disappearingAlert");
-
             setTimeout(function () {
                 alertDiv.style.opacity = "1";
             }, 1000);
         });
 
-        function addToCart(url) {
-            window.location.href = url;
-        }
-
-        function addToWishlist(url) {
-            window.location.href = url;
-        }
-
-
+        document.addEventListener("DOMContentLoaded", function () {
+            var alertDiv = document.getElementById("disappearingAlert");
+            setTimeout(function () {
+                alertDiv.style.opacity = "0";
+                alertDiv.style.zIndex = "-999";
+            }, 5000);
+        });
     </script>
 </body>
 </html>

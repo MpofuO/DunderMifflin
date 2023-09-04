@@ -11,7 +11,7 @@
     <div class="row col-10">
         @if (TempData["Message"] != null)
         {
-            <div class="d-flex justify-content-center" id="disappearingAlert" style="width:950px;">
+            <div class="d-flex justify-content-center" id="disappearingAlert" style="width:950px;position:fixed;">
                 <div class="alert alert-dismissible" role="alert">
                     @TempData["Message"]
                     <button type="button" class="ms-3 p-0 btn-close" style="position:inherit;padding: 0;align-self: center;"
