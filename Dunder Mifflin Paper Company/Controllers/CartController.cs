@@ -51,7 +51,8 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                 ModelState.AddModelError("", "This product is currently out of stock");
 
             return source == "Details" ? RedirectToAction("Details", "Product", new { id = productId })
-                : RedirectToAction("List", "Favourites");
+                : source == "products" ? RedirectToAction("List", "Product", new { id = "all" }, productId.ToString())
+                : RedirectToAction("List", "Favourite");
         }
         public IActionResult Remove(int productID)
         {

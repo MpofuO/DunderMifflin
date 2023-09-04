@@ -4,10 +4,22 @@
     ViewData["Title"] = "Products";
 }
 
+
 <div class="row">
     <div class="col-2">
     </div>
     <div class="row col-10">
+        @if (TempData["Message"] != null)
+        {
+            <div class="d-flex justify-content-center" id="disappearingAlert" style="width:950px;">
+                <div class="alert alert-dismissible" role="alert">
+                    @TempData["Message"]
+                    <button type="button" class="ms-3 p-0 btn-close" style="position:inherit;padding: 0;align-self: center;"
+                            data-bs-dismiss="alert" aria-label="Close">
+                    </button>
+                </div>
+            </div>
+        }
         <form method="get" asp-action="List" asp-route-id="@Model.SelectedType">
             <div class="mb-3 d-flex justify-content-center">
                 <input placeholder="Search for products..." name="search" asp-for="search" class="d-inline my-auto form-control" style="width:80%;" />
@@ -21,21 +33,37 @@
         </div>
         @foreach (Product p in Model.Products)
         {
-            <div class="col-md-3">
-                <div class="bg-light m-1 pb-2">
+            <div id="@p.ProductID" class="col-md-3 position-relative">
+                <a class="overlay" asp-action="Details" asp-route-id="@p.ProductID">
+                    <form asp-controller="Cart" asp-action="Add" asp-route-productID="@p.ProductID" method="post">
+                        <input value="products" name="source" hidden />
+                        <button class="btn btn-outline-success cart-button mx-1 mb-5" title="Add to cart" type="submit">
+                            +<i class="text-success fa-solid fa-cart-shopping"></i>
+                        </button>
+                    </form>
+                    <form asp-controller="Favourite" asp-action="Add" asp-route-productID="@p.ProductID" method="post">
+                        <input value="products" name="source" hidden />
+                        <button class="btn btn-ouline-secondary cart-button mx-1 mb-5" title="Add to wishlist" type="submit" style="border:1px solid grey">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                    </form>
+
+                </a>
+                <a class="justify-content-center text-dark overlay-link" style="background-color:transparent;" asp-action="Details" asp-route-id="@p.ProductID">
                     <img src="/images/dundermifflin.png" alt="@p.Name" style="width: 100%">
-                    <h5>
-                        <a asp-action="Details" asp-route-id="@p.ProductID">@p.Name</a>
+                    <h5 class="w-100% mb-0">
+                        R@(p.Price)
                     </h5>
-                    <p class="text-right lead mb-0">R@(p.Price)</p>
-                    <p>
+                    <h6 class="text-right w-100 mb-0">@p.Name</h6>
+                    <h7 class="w-100%">
                         @{
                             string desc = p.InStock ? "In stock" : "Out of stock";
                         }
                         @desc
-                    </p>
-                </div>
+                    </h7>
+                </a>
             </div>
+
         }
     </div>
 </div>

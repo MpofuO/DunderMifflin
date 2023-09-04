@@ -17,7 +17,9 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
         {
             return View(repository.Favourite.GetUserFavouritesWithProduct(User.Identity.Name));
         }
-        public IActionResult Add(int productID)
+
+        [HttpPost]
+        public IActionResult Add(int productID, string source)
         {
             var favourite = repository.Favourite.GetUserFavouritesWithProduct(User.Identity.Name).FirstOrDefault(f => f.ProductID == productID);
             if (favourite is null)
@@ -30,7 +32,9 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                 repository.Save();
             }
             TempData["Message"] = "Added to wishlist";
-            return RedirectToAction("Details", "Product", new { id = productID });
+
+            return source == "Details" ? RedirectToAction("Details", "Product", new { id = productID })
+                : RedirectToAction("List", "Product", new { id = "all" }, productID.ToString());
         }
         public IActionResult Remove(int favouriteID)
         {

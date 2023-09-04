@@ -151,9 +151,18 @@
             var alertDiv = document.getElementById("disappearingAlert");
 
             setTimeout(function () {
-                alertDiv.style.opacity = "1"; // Make the alert appear
+                alertDiv.style.opacity = "1";
             }, 1000);
         });
+
+        function addToCart(url) {
+            window.location.href = url;
+        }
+
+        function addToWishlist(url) {
+            window.location.href = url;
+        }
+
 
     </script>
 </body>
