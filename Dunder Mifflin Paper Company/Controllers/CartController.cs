@@ -67,21 +67,6 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
             return RedirectToAction("Index");
         }
-        public IActionResult AddToList(int productID)
-        {
-            var favourite = repository.Favourite.GetUserFavouritesWithProduct(User.Identity.Name).FirstOrDefault(f => f.ProductID == productID);
-            if (favourite is null)
-            {
-                repository.Favourite.Create(new Favourite
-                {
-                    CustomerUserName = User.Identity.Name,
-                    ProductID = productID
-                });
-                repository.Save();
-            }
-
-            return RedirectToAction("Index");
-        }
         public IActionResult Increment(int productID)
         {
             var cartProduct = repository.CartProduct.GetCartProductWithProduct(productID, User.Identity.Name);

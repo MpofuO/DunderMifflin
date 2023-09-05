@@ -6,7 +6,7 @@
 
 @if (TempData["Message"] != null)
 {
-    <div class="d-flex justify-content-center" id="disappearingAlert">
+    <div class="d-flex justify-content-center" id="disappearingAlert" style="width:100%;position:fixed;left:0;">
         <div class="alert alert-dismissible" role="alert">
             @TempData["Message"]
             <button type="button" class="ms-3 p-0 btn-close" style="position: inherit;padding: 0;align-self: center;"
@@ -22,6 +22,7 @@
     <div class="col-md-9">
         @foreach (var product in Model)
         {
+            <div id="@product.ProductID"></div>
             <div class="row m-3 mt-0 me-0 bg-white d-flex pb-2">
                 <div class="col-md-8">
                     <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductID"
@@ -59,10 +60,12 @@
                            class="btn me-1 cart-button">
                             <i class="fa-solid fa-trash"></i> Remove
                         </a>
-                        <a asp-action="AddToList" asp-route-productID="@product.ProductID"
-                           class="btn cart-button">
-                            <i class="fa-solid fa-heart"></i> Add to List
-                        </a>
+                        <form asp-controller="Favourite" asp-action="Add" asp-route-productID="@product.ProductID" method="post">
+                            <input value="favourites" name="source" hidden />
+                            <button class="btn cart-button" title="Add to wishlist" type="submit">
+                                <i class="fa-solid fa-heart"></i> Add to list
+                            </button>
+                        </form>
                     </div>
                 </div>
 
@@ -79,7 +82,7 @@
                 R <span id="total">@Model.Sum(cartProducts => cartProducts.totalPrice)</span>
             </h4>
         </div>
-        <form asp-action="Add" asp-controller="Order" method="post"> 
+        <form asp-action="Add" asp-controller="Order" method="post">
             <button class="btn btn-success d-grid w-100" type="submit">Place Order</button>
         </form>
 

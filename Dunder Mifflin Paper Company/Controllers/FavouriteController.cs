@@ -34,7 +34,8 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             TempData["Message"] = "Added to wishlist";
 
             return source == "Details" ? RedirectToAction("Details", "Product", new { id = productID })
-                : RedirectToAction("List", "Product", new { id = "all" }, productID.ToString());
+                : source == "Details" ? RedirectToAction("List", "Product", new { id = "all" }, productID.ToString())
+                : RedirectToAction("Index", "Cart", productID.ToString());
         }
         public IActionResult Remove(int favouriteID)
         {
