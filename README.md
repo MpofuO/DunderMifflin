@@ -49,7 +49,7 @@ The following images show some pages of the website's current status
 
 
 ### Order:
-![Cart](order.png)
+![Cart](orders.png)
 
 
 
