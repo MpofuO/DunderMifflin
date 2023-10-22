@@ -1,0 +1,30 @@
+﻿@model Address
+
+@{
+    string mode = Model.AddressID == 0 ? "Add" : "Edit";
+    ViewData["Title"] = mode + "address";
+}
+
+<h4>@mode</h4>
+<form asp-action="Update" method="post">
+    <input asp-for="CustomerUserName" hidden/>
+    <input asp-for="AddressID" hidden/>
+
+    <input class="form-control" asp-for="HouseNumber" placeholder="House number" />
+    <input class="form-control" asp-for="StreetName" placeholder="Strees name" />
+    <input class="form-control" asp-for="Surburb" placeholder="Surburb" />
+    <input class="form-control" asp-for="City" placeholder="City" />
+    <select class="form-select" asp-for="Province">
+        <option value="">Select a province</option>
+        <option>Gauteng</option>
+        <option>Eastern Cape</option>
+        <option>Western Cape</option>
+        <option>Free State</option>
+        <option>Mpumalanga</option>
+        <option>Limpopo</option>
+        <option>Kwa-Zulu Natal</option>
+        <option>North West</option>
+        <option>Northern Cape</option>
+    </select>
+    <input class="form-control" asp-for="PostalCode" placeholder="Postal Code" />
+</form>

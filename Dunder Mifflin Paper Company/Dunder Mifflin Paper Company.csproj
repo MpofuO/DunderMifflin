@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Address\" />
     <Folder Include="Views\ProductType\" />
   </ItemGroup>
 
