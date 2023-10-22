@@ -5,6 +5,7 @@
         private readonly AppDbContext context;
         private IOrderRepository _order;
         private IProductRepository _product;
+        private IAddressRepository _address;
         private IFavouriteRepository _favourite;
         private ICartProductRepository _cartProduct;
         private IProductTypeRepository _productType;
@@ -58,6 +59,16 @@
                 if (_productType == null)
                     _productType = new ProductTypeRepository(context);
                 return _productType;
+            }
+        }
+
+        public IAddressRepository Address
+        {
+            get
+            {
+                if (_address == null)
+                    _address = new AddressRepository(context);
+                return _address;
             }
         }
 

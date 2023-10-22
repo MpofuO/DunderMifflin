@@ -7,7 +7,7 @@ namespace Dunder_Mifflin_Paper_Company.Models
     {
         [Key]
         public int AddressID { get; set; }
-        public int CustomerUserName { get; set; }
+        public string CustomerUserName { get; set; }
         public string HouseNumber { get; set; }
         public string StreetName { get; set; }
         public string Surburb { get; set; }
