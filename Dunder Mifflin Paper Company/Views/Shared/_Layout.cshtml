@@ -82,7 +82,7 @@
                         @if (User.IsInRole("Customer") || User.IsInRole("Sales"))
                         {
                             <li class="nav-item n-item">
-                                <a class="nav-link " asp-controller="Order" asp-action="List">
+                                <a class="nav-link @(controller == "Order" ? "active" : "")" asp-controller="Order" asp-action="List">
                                     Orders
                                 </a>
                             </li>

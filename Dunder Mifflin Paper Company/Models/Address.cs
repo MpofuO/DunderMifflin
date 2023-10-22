@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Dunder_Mifflin_Paper_Company.Controllers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dunder_Mifflin_Paper_Company.Models
 {
@@ -15,6 +16,7 @@ namespace Dunder_Mifflin_Paper_Company.Models
         public string Province { get; set; }
         public string Country { get; set; }
         public bool IsDefault { get; set; }
+        public string ShortDescription => $"{HouseNumber} {StreetName}\n{Surburb}, {City}, {PostalCode}";
 
         public ICollection<Order> Orders { get; set; }
     }

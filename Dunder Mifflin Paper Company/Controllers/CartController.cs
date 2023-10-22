@@ -3,7 +3,6 @@ using Dunder_Mifflin_Paper_Company.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace Dunder_Mifflin_Paper_Company.Controllers
 {
@@ -103,6 +102,10 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                     return RedirectToAction("Remove", new { productID = productID });
             }
 
+            return RedirectToAction("Index");
+        }
+        public IActionResult Checkout()
+        {
             return RedirectToAction("Index");
         }
     }
