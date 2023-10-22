@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\images\\dundermifflin.png"
     },
     {
+      "Id": "C:\\Users\\20208\\source\\repos\\DunderMifflin\\Dunder Mifflin Paper Company\\wwwroot\\js\\checkout.js",
+      "PackagePath": "staticwebassets\\js\\checkout.js"
+    },
+    {
       "Id": "C:\\Users\\20208\\source\\repos\\DunderMifflin\\Dunder Mifflin Paper Company\\wwwroot\\js\\script.js",
       "PackagePath": "staticwebassets\\js\\script.js"
     },

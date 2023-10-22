@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mSNECzpWB0AU8FxsUXu92rFJmT1sAzUrCwlrJ/bGrPQ=",
+  "Hash": "tF6IPVbd9KwoBnYzjDWAjY6CSBaZiCrYPKWZLLofiTI=",
   "Source": "Dunder Mifflin Paper Company",
   "BasePath": "_content/Dunder Mifflin Paper Company",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\DunderMifflinLogo.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\20208\\source\\repos\\DunderMifflin\\Dunder Mifflin Paper Company\\wwwroot\\js\\checkout.js",
+      "SourceId": "Dunder Mifflin Paper Company",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\20208\\source\\repos\\DunderMifflin\\Dunder Mifflin Paper Company\\wwwroot\\",
+      "BasePath": "_content/Dunder Mifflin Paper Company",
+      "RelativePath": "js/checkout.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\checkout.js"
     },
     {
       "Identity": "C:\\Users\\20208\\source\\repos\\DunderMifflin\\Dunder Mifflin Paper Company\\wwwroot\\js\\script.js",
