@@ -1,28 +1,32 @@
 ﻿@model RegisterViewModel
 
-<div>
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <form asp-action="Register" method="post">
-        <div class="mb-4">
-            <input type="text" placeholder="First name" class="form-control" asp-for="FirstName" />
-        </div>
-        <div class="mb-4">
-            <input type="text" placeholder="Last name" class="form-control" asp-for="LastName" />
-        </div>
-        <div class="mb-4">
-            <input type="text" placeholder="Email address" class="form-control" asp-for="Email" />
-        </div>
-        <div class="mb-4">
-            <input type="text" placeholder="Phone number" class="form-control" asp-for="PhoneNumber" />
-        </div>
-        <div class="mb-4">
-            <input type="password" placeholder="Password" class="form-control" asp-for="Password" />
-        </div>
-        <div class="mb-4">
-            <input type="password" placeholder="Comfirm password" class="form-control" asp-for="ConfirmPassword" />
-        </div>
-        <div class="align-content-center flex">
-            <button class="btn btn-primary" type="submit">Register</button>
-        </div>
-    </form>
+<div class="d-flex justify-content-center">
+    <div class="mb-3 p-3 shadow" style="width:30%; border-radius:15px; background-color:whitesmoke;">
+        <h4 class="mb-2 d-flex justify-content-center">Register</h4>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-action="Register" method="post">
+            <div class="mb-4">
+                <input type="text" placeholder="First name" class="form-control" asp-for="FirstName" />
+            </div>
+            <div class="mb-4">
+                <input type="text" placeholder="Last name" class="form-control" asp-for="LastName" />
+            </div>
+            <div class="mb-4">
+                <input type="text" placeholder="Email address" class="form-control" asp-for="Email" />
+            </div>
+            <div class="mb-4">
+                <input type="text" placeholder="Phone number" class="form-control" asp-for="PhoneNumber" />
+            </div>
+            <div class="mb-4">
+                <input type="password" placeholder="Password" class="form-control" asp-for="Password" />
+            </div>
+            <div class="mb-4">
+                <input type="password" placeholder="Comfirm password" class="form-control" asp-for="ConfirmPassword" />
+            </div>
+            <div class="ms-2 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary me-3">Register</button>
+                <a href="javascript: window.history.go(-1)" class="btn btn-outline-secondary" >Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>

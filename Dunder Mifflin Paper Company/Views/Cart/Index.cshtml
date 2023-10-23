@@ -82,9 +82,7 @@
                 R <span id="total">@Model.Sum(cartProducts => cartProducts.totalPrice)</span>
             </h4>
         </div>
-        <form asp-action="Add" asp-controller="Order" method="post">
-            <button class="btn btn-success d-grid w-100" type="submit">Place Order</button>
-        </form>
+        <a asp-action="Checkout" class="btn btn-success d-grid w-100">Checkout</a>
 
     </div>
 </div>

@@ -4,27 +4,35 @@
     string mode = Model.AddressID == 0 ? "Add" : "Edit";
     ViewData["Title"] = mode + "address";
 }
+<div class="d-flex justify-content-center">
+    <div class="mb-3 p-3 shadow" style="width:30%; border-radius:15px; background-color:whitesmoke;">
+        <h4 class="mb-3 d-flex justify-content-center">@mode Address</h4>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-action="Update" method="post" class="mx-auto">
+            <input asp-for="CustomerUserName" hidden />
+            <input asp-for="AddressID" hidden />
 
-<h4>@mode</h4>
-<form asp-action="Update" method="post">
-    <input asp-for="CustomerUserName" hidden/>
-    <input asp-for="AddressID" hidden/>
-
-    <input class="form-control" asp-for="HouseNumber" placeholder="House number" />
-    <input class="form-control" asp-for="StreetName" placeholder="Strees name" />
-    <input class="form-control" asp-for="Surburb" placeholder="Surburb" />
-    <input class="form-control" asp-for="City" placeholder="City" />
-    <select class="form-select" asp-for="Province">
-        <option value="">Select a province</option>
-        <option>Gauteng</option>
-        <option>Eastern Cape</option>
-        <option>Western Cape</option>
-        <option>Free State</option>
-        <option>Mpumalanga</option>
-        <option>Limpopo</option>
-        <option>Kwa-Zulu Natal</option>
-        <option>North West</option>
-        <option>Northern Cape</option>
-    </select>
-    <input class="form-control" asp-for="PostalCode" placeholder="Postal Code" />
-</form>
+            <input class="mb-2 form-control" asp-for="HouseNumber" placeholder="House number" />
+            <input class="mb-2 form-control" asp-for="StreetName" placeholder="Strees name" />
+            <input class="mb-2 form-control" asp-for="Surburb" placeholder="Surburb" />
+            <input class="mb-2 form-control" asp-for="City" placeholder="City" />
+            <select class="mb-2 form-select" asp-for="Province">
+                <option value="">Select a province</option>
+                <option>Gauteng</option>
+                <option>Eastern Cape</option>
+                <option>Western Cape</option>
+                <option>Free State</option>
+                <option>Mpumalanga</option>
+                <option>Limpopo</option>
+                <option>Kwa-Zulu Natal</option>
+                <option>North West</option>
+                <option>Northern Cape</option>
+            </select>
+            <input class="mb-2 form-control" asp-for="PostalCode" placeholder="Postal Code" />
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-primary me-2" type="submit">@(mode == "Add" ? "Add" : "Update")</button>
+                <a href="javascript: window.history.go(-1)" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

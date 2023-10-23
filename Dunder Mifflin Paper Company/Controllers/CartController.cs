@@ -1,5 +1,6 @@
 ﻿using Dunder_Mifflin_Paper_Company.Data;
 using Dunder_Mifflin_Paper_Company.Models;
+using Dunder_Mifflin_Paper_Company.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
@@ -106,7 +107,21 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
         }
         public IActionResult Checkout()
         {
-            return RedirectToAction("Index");
+            IEnumerable<CartProduct> products = repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name);
+            if (products.Count() == 0)
+                return RedirectToAction("Index");
+
+            IEnumerable<Address> addresses = repository.Address.GetUserAddresses(User.Identity.Name);
+            if (addresses.Count() == 0)
+            {
+                return RedirectToAction("Add", "Address", new { source = "Checkout" });
+            }
+
+            return View(new CheckoutViewModel
+            {
+                Addresses = addresses.ToList(),
+                Products = products.ToList()
+            });
         }
     }
 }

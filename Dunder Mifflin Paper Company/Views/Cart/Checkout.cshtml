@@ -1,5 +1,9 @@
 ﻿@model CheckoutViewModel
 
+@{
+    Layout = null;
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +47,8 @@
                     <div class="bg-white px-3 py-3">
                         <div class="d-flex justify-content-between">
                             <p>Delivery Address</p>
-                            <a asp-action="" asp-controller="" class="btn btn-primary">Add Address</a>
+                            <a asp-action="Add" asp-controller="Address" asp-route-source="Checkout"
+                               class="btn btn-primary">Add Address</a>
                         </div>
                         <hr />
                         @{

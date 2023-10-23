@@ -1,23 +1,26 @@
 ﻿@model LoginViewModel
 
-<div>
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <form asp-action="Login" method="post">
-        <div class="mb-4">
-            <label class="form-label" asp-for="UserName"></label>
-            <input type="text" class="form-control" asp-for="UserName" />
-        </div>
-        <div class="mb-4">
-            <label class="form-label" asp-for="Password">Password</label>
-            <input type="password" class="form-control" asp-for="Password" />
-        </div>
-        <div class="mb-4">
-            <input type="checkbox" class="form-check-input" asp-for="RememberMe" />
-            <label class="form-label" asp-for="RememberMe"></label><br />
-        </div>
-        <div class="ms-3">
-            <button type="submit" class="btn btn-primary">Login</button>
-            <button class="btn btn-primary" asp-action="Register">Register</button>
-        </div>
-    </form>
+<div class="d-flex justify-content-center">
+    <div class="mb-3 p-3 shadow" style="width:30%; border-radius:15px; background-color:whitesmoke;">
+        <h4 class="mb-2 d-flex justify-content-center">Welcome back</h4>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-action="Login" method="post">
+            <div class="mb-3">
+                <label class="form-label" asp-for="UserName"></label>
+                <input type="text" class="form-control" asp-for="UserName" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Password">Password</label>
+                <input type="password" class="form-control" asp-for="Password" />
+            </div>
+            <div class="mb-3">
+                <input type="checkbox" class="form-check-input" asp-for="RememberMe" />
+                <label class="form-label" asp-for="RememberMe"></label><br />
+            </div>
+            <div class="ms-2 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary me-3">Login</button>
+                <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Register">Register</a>
+            </div>
+        </form>
+    </div>
 </div>

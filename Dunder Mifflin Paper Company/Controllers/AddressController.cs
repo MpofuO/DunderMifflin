@@ -16,8 +16,9 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
         {
             return View();
         }
-        public IActionResult Add()
+        public IActionResult Add(string source = "About")
         {
+            TempData["Source"] = source;
             return View(new Address
             {
                 CustomerUserName = User.Identity.Name,
@@ -36,7 +37,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
                 repository.Save();
 
-                return TempData["Source"].ToString() == "Checkout" ? RedirectToAction("Checkout", "CartProduct") 
+                return TempData["Source"].ToString() == "Checkout" ? RedirectToAction("Checkout", "Cart") 
                         : RedirectToAction("Index");
             }
             return View(address);

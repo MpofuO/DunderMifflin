@@ -46,30 +46,36 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressID"));
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CustomerUserName")
-                        .HasColumnType("int");
+                    b.Property<string>("CustomerUserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HouseNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");
 
                     b.Property<string>("PostalCode")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Province")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StreetName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surburb")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AddressID");
@@ -138,6 +144,9 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
 
                     b.Property<string>("CustomerUserName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DeliveryMethod")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("PlacedDate")
                         .HasColumnType("datetime2");

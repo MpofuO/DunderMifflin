@@ -145,22 +145,6 @@
     </footer>
     <script asp-src-include="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script asp-src-include="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var alertDiv = document.getElementById("disappearingAlert");
-            setTimeout(function () {
-                alertDiv.style.opacity = "1";
-            }, 1000);
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            var alertDiv = document.getElementById("disappearingAlert");
-            setTimeout(function () {
-                alertDiv.style.opacity = "0";
-                alertDiv.style.zIndex = "-999";
-            }, 5000);
-        });
-    </script>
+    <script src="~/js/script.js" asp-append-version="true"></script>
 </body>
 </html>
