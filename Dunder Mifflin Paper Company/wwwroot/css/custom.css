@@ -2,6 +2,11 @@
     background-color: #f3f3f3;
 }
 
+a.default {
+    color:blue;
+    text-decoration:underline;
+}
+
 hr {
     margin-top: 3px;
     margin-bottom: 3px;

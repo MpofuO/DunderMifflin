@@ -6,12 +6,10 @@
         <div asp-validation-summary="All" class="text-danger"></div>
         <form asp-action="Login" method="post">
             <div class="mb-3">
-                <label class="form-label" asp-for="UserName"></label>
-                <input type="text" class="form-control" asp-for="UserName" />
+                <input type="text" placeholder="@Html.DisplayName("UserName")" class="form-control" asp-for="UserName" />
             </div>
             <div class="mb-3">
-                <label class="form-label" asp-for="Password">Password</label>
-                <input type="password" class="form-control" asp-for="Password" />
+                <input type="password" placeholder="@Html.DisplayName("Password")" class="form-control" asp-for="Password" />
             </div>
             <div class="mb-3">
                 <input type="checkbox" class="form-check-input" asp-for="RememberMe" />
