@@ -6,6 +6,8 @@ namespace Dunder_Mifflin_Paper_Company.Data
     {
         public AddressRepository(AppDbContext context) : base(context) { }
 
+        public int CollectionID => FindAll().FirstOrDefault(a => a.CustomerUserName == "Collection").AddressID;
+
         public IEnumerable<Address> GetUserAddresses(string username)
         {
             return FindAll().Where(address => address.CustomerUserName == username);

@@ -26,6 +26,12 @@ namespace Dunder_Mifflin_Paper_Company.Data
                     );
             }
 
+            if (!context.Addresses.Any())
+            {
+                context.Addresses.Add(
+                    new Address { CustomerUserName="Collection"});
+            }
+
             if (!context.Products.Any())
             {
                 context.Products.AddRange(
