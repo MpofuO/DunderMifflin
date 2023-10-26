@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="col-md-4" style="height:fit-content;">
-                    <div class="bg-white px-5 py-3 shadow">
+                    <div class="bg-white px-4 py-3 shadow">
                         <h5 class="text-secondary mb-0">Order Summary</h5>
                         <div class="mt-3 mb-2 d-flex justify-content-between">
                             <div class="d-flex align-items-end" style="">
@@ -152,13 +152,14 @@
                         </div>
                         <div id="minProducts" style="display:flex;">
                             @{
-                                int j = 1;
+                                int j = 0;
                             }
                             @foreach (var p in Model.Products.Take(4))
                             {
-                                if (j != 4)
+                                if (j != 3)
                                 {
-                                    <a class="me-1" style="position:relative; border: 1px solid grey;width:70px;height:70px;">
+                                    <a asp-action="Details" asp-controller="Product" asp-route-id="@p.ProductID"
+                                       class="me-1" style="position:relative; border: 1px solid grey;width:70px;height:70px;">
                                         <img src="~/images/dundermifflin.png" style="width:100%;height:100%;" />
                                     </a>
 
@@ -176,7 +177,8 @@
                         <div id="maxProducts" hidden>
                             @foreach (var p in Model.Products)
                             {
-                                <a class="row d-flex ms-auto mb-2" style="position:relative;text-decoration:none;">
+                                <a asp-action="Details" asp-controller="Product" asp-route-id="@p.ProductID"
+                                   class="row d-flex ms-auto mb-2" style="position:relative;text-decoration:none;">
                                     <img class="col-3" src="~/images/dundermifflin.png" style="border: 1px solid grey;width:80px;height:80px;" />
                                     <div class="col-8">
                                         <h6 style="color:dimgrey">@p.Product.Name</h6>
