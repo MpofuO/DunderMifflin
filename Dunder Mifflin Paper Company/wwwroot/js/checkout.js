@@ -38,3 +38,13 @@ function Show(show) {
         btnLess.hidden = true;
     }
 }
+
+function ShowDetails() {
+    minProducts = document.getElementById('minProducts');
+    maxProducts = document.getElementById('maxProducts');
+    btnShowDetails = document.getElementById('showDetails');
+
+    minProducts.hidden = maxProducts.hidden;
+    maxProducts.hidden = !maxProducts.hidden;
+    btnShowDetails.innerText = maxProducts.hidden ? 'Show Details' : 'Hide Details';
+}
