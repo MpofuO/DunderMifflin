@@ -10,8 +10,7 @@ namespace Dunder_Mifflin_Paper_Company.Models
         public string CustomerUserName { get; set; }
 
         [Required(ErrorMessage ="Please enter a house number")]
-        [RegularExpression(@"[\d]*")]
-        public string HouseNumber { get; set; }
+        public int HouseNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter the street name")]
         public string StreetName { get; set; }
@@ -23,6 +22,7 @@ namespace Dunder_Mifflin_Paper_Company.Models
         public string City { get; set; }
 
         [Required(ErrorMessage = "Please enter the postal code")]
+        [RegularExpression(@"[\d]{4}", ErrorMessage ="Postal code must be 4 digits")]
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Please select the province")]

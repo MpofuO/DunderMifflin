@@ -1,6 +1,6 @@
 function SelectDeliveryMethod(type) {
     var form = document.forms.OrderReview;
-    form.DeliveryMethod.value = type;
+    form.deliveryMethod.value = type;
 
     let selected;
     let unselected;

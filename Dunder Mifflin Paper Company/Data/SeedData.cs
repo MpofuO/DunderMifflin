@@ -29,7 +29,18 @@ namespace Dunder_Mifflin_Paper_Company.Data
             if (!context.Addresses.Any())
             {
                 context.Addresses.Add(
-                    new Address { CustomerUserName="Collection"});
+                    new Address
+                    {
+                        CustomerUserName = "Collection",
+                        HouseNumber = 0,
+                        StreetName=" ",
+                        Surburb=" ",
+                        City=" ",
+                        Province = " ",
+                        PostalCode="0000"
+
+
+                    });
             }
 
             if (!context.Products.Any())

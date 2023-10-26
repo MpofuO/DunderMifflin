@@ -44,15 +44,19 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Customer")]
-        public IActionResult Add()
+        public IActionResult Add(string deliveryMethod, int addressID)
         {
             List<CartProduct> cartProducts = repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name).Where(cp => !cp.isOrdered).ToList();
+
+            bool isDelivery = deliveryMethod == "Delivery";
 
             repository.Order.Create(new Order
             {
                 Products = new Collection<CartProduct>(cartProducts),
                 CustomerUserName = User.Identity.Name,
-                PlacedDate = DateTime.UtcNow
+                PlacedDate = DateTime.UtcNow,
+                DeliveryMethod = isDelivery ? DeliveryMethod.Delivery : DeliveryMethod.Collection,
+                AddressID = isDelivery ? addressID : repository.Address.CollectionID
 
             });
 
