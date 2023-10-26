@@ -107,15 +107,13 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
         }
         public IActionResult Checkout()
         {
-            IEnumerable<CartProduct> products = repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name);
+            IEnumerable<CartProduct> products = repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name).Where(cp => !cp.isOrdered);
             if (products.Count() == 0)
                 return RedirectToAction("Index");
 
             IEnumerable<Address> addresses = repository.Address.GetUserAddresses(User.Identity.Name);
             if (addresses.Count() == 0)
-            {
                 return RedirectToAction("Add", "Address", new { source = "Checkout" });
-            }
 
             return View(new CheckoutViewModel
             {

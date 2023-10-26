@@ -10,7 +10,7 @@ namespace Dunder_Mifflin_Paper_Company.Data
 
         public IEnumerable<Address> GetUserAddresses(string username)
         {
-            return FindAll().Where(address => address.CustomerUserName == username);
+            return FindByCondition(address => address.CustomerUserName == username);
         }
     }
 }

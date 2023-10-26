@@ -37,10 +37,10 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
                 repository.Save();
 
-                return TempData["Source"].ToString() == "Checkout" ? RedirectToAction("Checkout", "Cart") 
+                return TempData["Source"].ToString() == "Checkout" ? RedirectToAction("Checkout", "Cart")
                         : RedirectToAction("Index");
             }
-            return View(address);
+            return View("Add", address);
         }
         public IActionResult Delete()
         {

@@ -55,9 +55,8 @@ namespace Dunder_Mifflin_Paper_Company.Migrations
                     b.Property<string>("CustomerUserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HouseNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("HouseNumber")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");

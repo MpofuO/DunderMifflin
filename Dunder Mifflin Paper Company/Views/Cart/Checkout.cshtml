@@ -150,7 +150,7 @@
                             <span class="d-flex align-content-center" style="flex-wrap:wrap"><strong>Items for delivery</strong></span>
                             <button type="button" onclick="ShowDetails()" id="showDetails" class="btn cart-button">Show Details</button>
                         </div>
-                        <div id="minProducts" style="display:flex;">
+                        <div id="minProducts" class="mx-2" style="display:flex;">
                             @{
                                 int j = 0;
                             }
@@ -174,14 +174,14 @@
                                 j++;
                             }
                         </div>
-                        <div id="maxProducts" hidden>
+                        <div id="maxProducts" class="mt-2" hidden>
                             @foreach (var p in Model.Products)
                             {
                                 <a asp-action="Details" asp-controller="Product" asp-route-id="@p.ProductID"
-                                   class="row d-flex ms-auto mb-2" style="position:relative;text-decoration:none;">
-                                    <img class="col-3" src="~/images/dundermifflin.png" style="border: 1px solid grey;width:80px;height:80px;" />
-                                    <div class="col-8">
-                                        <h6 style="color:dimgrey">@p.Product.Name</h6>
+                                   class="d-flex ms-auto mb-2" style="position:relative;text-decoration:none;">
+                                    <img class="me-2" src="~/images/dundermifflin.png" style="border: 1px solid grey;width:75px;height:75px;" />
+                                    <div class="">
+                                        <h6 class="mb-n1" style="color:dimgrey">@p.Product.Name</h6>
                                         <div class="d-flex align-content-end">
                                             <h6 class="me-1">R @p.Product.Price</h6>
                                             <span style="font-size:small; color:gray"> Qty: @p.PurchaseQuantity</span>

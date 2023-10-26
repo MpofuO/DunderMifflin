@@ -46,7 +46,7 @@
     <div class="col col-md-4 bg-white" style="height:fit-content; width:30%;">
         <h2 class="mb-0">@($"R{Model.Product.Price}")</h2>
         <p class="mb-1" style="font-size:small;"><i class="fa-solid fa-check text-success"></i> Eligible for cash on delivery</p>
-        <p class="mb-3" style="font-size:small;"><i class="fa-solid fa-check text-success"></i> Free delivery for orders at R950 or more</p>
+        <p class="mb-3" style="font-size:small;"><i class="fa-solid fa-check text-success"></i> Free delivery for orders at R450 or more</p>
         <form asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Product.ProductID" method="post" class="mb-2">
             <input value="Details" name="source" hidden />
             <button class="btn btn-success" type="submit" style="width:100%;">+<i class="fa-solid fa-cart-shopping"></i> Add to cart</button>

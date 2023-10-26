@@ -12,7 +12,7 @@
             <input asp-for="CustomerUserName" hidden />
             <input asp-for="AddressID" hidden />
 
-            <input class="mb-2 form-control" asp-for="HouseNumber" placeholder="House number" />
+            <input class="mb-2 form-control" type="text" asp-for="HouseNumber" value="" pattern="[\d]*" placeholder="House number" />
             <input class="mb-2 form-control" asp-for="StreetName" placeholder="Strees name" />
             <input class="mb-2 form-control" asp-for="Surburb" placeholder="Surburb" />
             <input class="mb-2 form-control" asp-for="City" placeholder="City" />
