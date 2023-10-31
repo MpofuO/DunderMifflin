@@ -19,29 +19,30 @@
     </div>
 }
 
-<h3 class="ms-3">Orders</h3>
+<div class="d-flex justify-content-between">
+    <h4 class="ms-3 mb-0" style="align-content: end;display: flex;flex-wrap: wrap;">Orders</h4>
+    <a href="#" style="align-content: end;display: flex;flex-wrap: wrap;text-decoration-line:underline;">View history</a>
+</div>
 
-<div class="mt-4 mb-2">
+<div class="mt-2 mb-4">
     @foreach (var order in Model)
     {
         <div class="bg-white p-3 pb-1 mb-2 shadow">
-            <div class="d-flex justify-content-between align-content-center">
-                <div>
-                    <h5>Order No: @($"#{order.OrderNumber}")</h5>
-                    <p>Placed: @($"{order.PlacedDate.DayOfWeek.ToString()}, {order.PlacedDate.Day} {months[order.PlacedDate.Month]}")</p>
-                </div>
-                <form>
-                    <a class="btn px-2 py-1 my-auto" style="background-color:#f3f3f3; border: 1px solid grey;">Order Details</a>
-                </form>
+            <div class="d-flex justify-content-between align-content-center py-2">
+                @{
+                    DateTime date = order.isProcessed ? order.ProcessedDate : order.PlacedDate.AddDays(3);
+                }
+                <h5>@(order.isProcessed ? "Delivered " : "Delivered by ") @date.ToString("ddd, dd MMMM yyyy")</h5>
+                <a class="btn px-2 py-1" style="background-color:#f3f3f3; border: 1px solid grey;border-radius:0;">Order Details</a>
             </div>
             <hr />
-            <div class="d-flex my-2">
+            <div class="d-flex m-2">
                 @{
-                    //int ii = Model.Count() < 5 ? Model.Count() : 5;
+                    int i = 0;
                 }
-                @for (int i = 0; i < order.Products.Count(); i++)
+                @foreach (var product in order.Products.Take(5))
                 {
-                    if (i != 5)
+                    if (i != 4)
                     {
                         <a class="me-2" style="position:relative; border: 1px solid grey;width:100px;height:100px;">
                             <img src="~/images/dundermifflin.png" style="width:100%;height:100%;" />
@@ -51,10 +52,11 @@
                     else
                     {
                         <a class="me-2" href="#" style="position:relative;border: 1px solid grey;width:100px;height:100px;">
-                            <img src="~/images/dundermifflin.png" style="width:100%;height:100%;" />
-                            <i class="fa-solid fa-plus" style="position:absolute; top:50%; right:50%"></i>
+                            <img src="~/images/dundermifflin.png" style="width:100%;height:100%;opacity:0.5;" />
+                            <i class="fa-solid fa-plus" style="position:absolute; top:40%; right:40%"></i>
                         </a>
                     }
+                    i++;
                 }
             </div>
         </div>

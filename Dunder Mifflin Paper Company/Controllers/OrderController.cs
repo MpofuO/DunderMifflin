@@ -92,7 +92,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Sales")]
-        public IActionResult ProcessOrder(int id, [Required] string processId)//processId is approve/disapprove
+        public IActionResult ProcessOrder(int id, [Required]string processId)//processId is approve/disapprove
         {
             Order order = repository.Order.GetById(id);
             if (order != null)
