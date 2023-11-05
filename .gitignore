@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Dunder Mifflin Paper Company/v17/.suo
+/Dunder Mifflin Paper Company/bin/Debug/net7.0/Dunder Mifflin Paper Company.dll
+/Dunder Mifflin Paper Company/bin/Debug/net7.0/Dunder Mifflin Paper Company.pdb
+/Dunder Mifflin Paper Company/obj/Debug/net7.0/Dunder Mifflin Paper Company.dll
+/Dunder Mifflin Paper Company/obj/Debug/net7.0/Dunder Mifflin Paper Company.pdb
