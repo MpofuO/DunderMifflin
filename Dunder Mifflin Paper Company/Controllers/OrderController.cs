@@ -29,14 +29,14 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                     list = repository.Order.GetUserOrdersWithProducts(User.Identity.Name).Where(order => order.isPlaced);
             }
             else
-                list = repository.Order.FindAll().Where(order => order.isPlaced);
+                list = repository.Order.FindAll().Where(order => !order.isProcessed);
 
             return View(list);
         }
         [HttpGet]
         public IActionResult Details(int id)
         {
-            Order order = repository.Order.GetById(id);
+            Order order = repository.Order.GetOrderWithDetails(id);
             if (order != null)
                 return View(order);
             return View("List");

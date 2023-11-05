@@ -1,1 +1,118 @@
 ﻿@model Order
+@{
+    ViewData["Title"] = "Order Details";
+    string user = User.Identity.Name;
+}
+
+<div class="d-flex justify-content-between mb-3">
+    <h4 style="color:dimgrey;align-content: baseline;display: flex;flex-wrap: wrap-reverse;margin: 0;">Order Details</h4>
+    <a asp-action="List" class="btn px-2 py-1" style="background-color:lightgray;border: 1px solid grey;border-radius:0;">
+        View All Orders
+    </a>
+</div>
+
+<div class="bg-white py-2 mb-3 shadow">
+    <div class="m-2 py-2">
+        <h6 style="display:inline" class="bolder">Order #@Model.OrderNumber </h6>
+        <div class="vl mx-1"></div>
+        <h6 style="display:inline;font-weight:normal;">@(Model.isProcessed ? $"Delivered {Model.ProcessedDate.ToString("dd MMMM yyyy")} " : $"ORDERED {Model.PlacedDate.ToString("dd MMMM yyyy")} ")</h6>
+        <div class="vl mx-1"></div>
+        <h6 style="display:inline;font-weight:normal;">PAID @Model.PlacedDate.ToString("dd MMMM yyyy")</h6>
+    </div>
+    <hr class="w-100" />
+    <div class="row p-3">
+        <div class="col-4">
+            <h6 class="bolder"><i class="fa-solid fa-address-card"></i> Shipping Address</h6>
+            <p>
+                @if (Model.DeliveryMethod == DeliveryMethod.Delivery)
+                {
+                    @($"{user.Substring(user.Length - 1).ToUpper()} {user.Substring(0, 1).ToUpper()}{user.Substring(1, user.Length - 2)}")
+
+                    <br />
+                    @($"{Model.Address.HouseNumber} {Model.Address.StreetName}")
+
+                    <br />
+                    @Model.Address.Surburb
+
+                    <br />
+                    @Model.Address.City
+
+                    <br />
+                    @Model.Address.PostalCode
+                }
+                else
+                {
+                    <span>Order collected at warehouse.<br />@(Model.isProcessed ? "" : "Please wait for information regarding collection.")</span>
+                }
+
+            </p>
+        </div>
+        <div class="col-4">
+            <h6 class="bolder"><i class="fa-solid fa-shipping-fast"></i> Delivery Method</h6>
+            <p>
+                Gauranteed Express
+            </p>
+            <h6 class="bolder"><i class="fa-regular fa-credit-card"></i> Payment Method</h6>
+            <p>
+                Credit / Debit Card
+            </p>
+        </div>
+        <div class="col-4">
+            <h6 class="bolder"><i class="fa-solid fa-list"></i> Order Summary</h6>
+            <p>
+                <div class="d-flex justify-content-between">
+                    <span>
+                        @{
+                            int count = Model.Products.Sum(p => p.PurchaseQuantity);
+                        }
+                        @count item@(count > 1 ? "s" : "")
+                    </span>
+                    <span style="font-weight:500;">
+                        R @Model.Cost
+                    </span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span>
+                        Delivery:
+                    </span>
+                    <span style="font-weight:500;">
+                        @(Model.Cost + Model.Cost > 450 ? "R 0" : "R 60")
+                    </span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <span>
+                        Order Total :
+                    </span>
+                    <span style="font-weight:500;">
+                        @{
+                            decimal total = Model.Cost;
+                            total += Model.Cost > 450 ? 0 : 60;
+                        }
+                        R @total
+                    </span>
+                </div>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="bg-white py-2 mb-2">
+    <div class="m-2 py-2">
+        <h6 style="display:inline" class="bolder">Order Items: </h6>
+    </div>
+    <hr class="w-100" />
+    <div class="mt-3 p-2 row">
+        @foreach (var p in Model.Products)
+        {
+            <a asp-action="Details" asp-controller="Product" asp-route-id="@p.ProductID"
+               class="d-flex me-auto mb-3 col-6" style="position:relative;text-decoration:none;">
+                <img class="me-3" src="~/images/dundermifflin.png" style="border: 1px solid grey;width:130px;height:130px;" />
+                <div class="">
+                    <h5 class="" style="color:dimgrey">@p.Product.Name</h5>
+                    <h6 class="">R @p.Product.Price</h6>
+                    <span style="color:gray"> Qty: @p.PurchaseQuantity</span>
+                </div>
+            </a>
+        }
+    </div>
+</div>

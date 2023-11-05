@@ -9,9 +9,10 @@ namespace Dunder_Mifflin_Paper_Company.Data
         {
         }
 
-        public Order GetOrderWithProducts(int id)
+        public Order GetOrderWithDetails(int id)
         {
-            return context.Orders.Include(order => order.Products).FirstOrDefault(order => order.OrderID == id);
+            return context.Orders.Include(order => order.Products).ThenInclude(cp=>cp.Product)
+                .Include(order => order.Address).FirstOrDefault(order => order.OrderID == id);
         }
 
         public IEnumerable<Order> GetUserOrdersWithProducts(string UserName)

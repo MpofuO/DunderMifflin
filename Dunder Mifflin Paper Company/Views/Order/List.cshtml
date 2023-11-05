@@ -32,8 +32,11 @@
                 @{
                     DateTime date = order.isProcessed ? order.ProcessedDate : order.PlacedDate.AddDays(3);
                 }
-                <h5>@(order.isProcessed ? "Delivered " : "Delivered by ") @date.ToString("ddd, dd MMMM yyyy")</h5>
-                <a class="btn px-2 py-1" style="background-color:#f3f3f3; border: 1px solid grey;border-radius:0;">Order Details</a>
+                <h5>@(order.isProcessed ? "Delivered " : "Arrives by ") @date.ToString("ddd, dd MMMM yyyy")</h5>
+                <a asp-action="Details" asp-route-id="@order.OrderID"
+                   class="btn px-2 py-1" style="background-color:#f3f3f3; border: 1px solid grey;border-radius:0;">
+                    Order Details
+                </a>
             </div>
             <hr />
             <div class="d-flex m-2">
@@ -51,7 +54,8 @@
                     }
                     else
                     {
-                        <a class="me-2" href="#" style="position:relative;border: 1px solid grey;width:100px;height:100px;">
+                        <a asp-action="Details" asp-route-id="@order.OrderID"
+                           class="me-2" style="position:relative;border: 1px solid grey;width:100px;height:100px;">
                             <img src="~/images/dundermifflin.png" style="width:100%;height:100%;opacity:0.5;" />
                             <i class="fa-solid fa-plus" style="position:absolute; top:40%; right:40%"></i>
                         </a>
