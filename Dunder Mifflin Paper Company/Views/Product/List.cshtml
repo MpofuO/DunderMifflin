@@ -35,21 +35,43 @@
         {
             <div id="@p.ProductID" class="col-md-3 position-relative">
                 <a class="overlay" asp-action="Details" asp-route-id="@p.ProductID">
-                    <form asp-controller="Cart" asp-action="Add" asp-route-productID="@p.ProductID" method="post">
-                        <input value="products" name="source" hidden />
-                        <button class="btn btn-outline-success cart-button mx-1 mb-5" title="Add to cart" type="submit">
-                            +<i class="text-success fa-solid fa-cart-shopping"></i>
-                        </button>
-                    </form>
-                    <form asp-controller="Favourite" asp-action="Add" asp-route-productID="@p.ProductID" method="post">
-                        <input value="products" name="source" hidden />
-                        <button class="btn btn-ouline-secondary cart-button mx-1 mb-5" title="Add to wishlist" type="submit" style="border:1px solid grey">
-                            <i class="fa-solid fa-heart"></i>
-                        </button>
-                    </form>
+                    @if (User.IsInRole("Customer") || !User.Identity.IsAuthenticated)
+                    {
+                        <form id="addToCart@(p.ProductID)" asp-controller="Cart" asp-action="Add" asp-route-productID="@p.ProductID" method="post">
+                            <input value="products" name="source" hidden />
+                            <div class="btn btn-outline-success cart-button mx-1 mb-5" title="Add to cart"
+                                 onclick="submit('addToCart@(p.ProductID)')">
+                                +<i class="text-success fa-solid fa-cart-shopping"></i>
+                            </div>
+                        </form>
+                        <form id="addToFavs@(p.ProductID)" asp-controller="Favourite" asp-action="Add" asp-route-productID="@p.ProductID" method="post">
+                            <input value="products" name="source" hidden />
+                            <div class="btn btn-ouline-secondary cart-button mx-1 mb-5" title="Add to wishlist" style="border:1px solid grey"
+                                 onclick="submit('addToFavs@(p.ProductID)')">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                        </form>
+                    }
+                    else if (User.IsInRole("Sales"))
+                    {
+                        <form id="Edit@(p.ProductID)" asp-controller="Cart" asp-action="Add" asp-route-productID="@p.ProductID" method="post">
+                            <input value="products" name="source" hidden />
+                            <div class="btn btn-outline-success cart-button mx-1 mb-5" title="Add to cart"
+                                 onclick="submit('Edit@(p.ProductID)')">
+                                +<i class="text-success fa-solid fa-edit"></i>
+                            </div>
+                        </form>
+                        <form id="Delete@(p.ProductID)" asp-controller="Favourite" asp-action="Add" asp-route-productID="@p.ProductID" method="post">
+                            <input value="products" name="source" hidden />
+                            <div class="btn btn-ouline-secondary cart-button mx-1 mb-5" title="Add to wishlist" style="border:1px solid grey"
+                                 onclick="submit('Delete@(p.ProductID)')">
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </form>
+                    }
 
                 </a>
-                <a class="justify-content-center text-dark overlay-link" style="background-color:transparent;" asp-action="Details" asp-route-id="@p.ProductID">
+                <a id="prodLink@(p.ProductID)" class="justify-content-center text-dark overlay-link" style="background-color:transparent;" asp-action="Details" asp-route-id="@p.ProductID">
                     <img src="/images/dundermifflin.png" alt="@p.Name" style="width: 100%">
                     <h5 class="w-100% mb-0">
                         R@(p.Price)

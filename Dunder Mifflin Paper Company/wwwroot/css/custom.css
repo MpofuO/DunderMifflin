@@ -94,10 +94,6 @@ hr {
     transition: opacity 0.1s ease;
 }
 
-    .overlay button {
-        z-index: 999;
-    }
-
 .position-relative:hover .overlay {
     opacity: 1;
 }
@@ -108,7 +104,7 @@ hr {
     height: 100%;
     position: relative;
     display: block;
-    z-index:0;
+    z-index:999;
     transition: opacity 0.1s ease;
 }
 
