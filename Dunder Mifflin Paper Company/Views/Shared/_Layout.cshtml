@@ -10,63 +10,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - Dunder Mifflin</title>
+    <link rel="stylesheet" asp-href-include="/css/custom.css" />
     <link rel="stylesheet" asp-href-include="/lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" asp-href-include="/lib/font-awesome/css/all.min.css" />
-    <link rel="stylesheet" asp-href-include="/css/custom.css" />
-    <style>
-        a {
-            position: relative;
-            text-decoration: none;
-            padding: 0 10px;
-        }
-
-            a.nav-link:before,
-            a.nav-link:after {
-                content: "";
-                position: absolute;
-                height: 3px;
-                width: 0;
-                background-color: lightblue;
-                transition: 0.3s;
-            }
-
-            a:after {
-                left: 0;
-                margin-left: 10%;
-                bottom: 3px
-            }
-
-            a:before {
-                right: 0;
-                margin-right: 10%;
-                top: 3px
-            }
-
-            a:hover:after,
-            a:hover:before {
-                width: 80%;
-            }
-
-            a.nav-link.active:before,
-            a.nav-link.active:after {
-                content: "";
-                position: absolute;
-                height: 3px;
-                width: 80%;
-                background-color: lightblue;
-            }
-
-        .vl {
-            border: 1px solid grey;
-            height: inherit;
-            width: 0px;
-            display: inline;
-        }
-
-        .bolder{
-            font-weight:700;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -150,8 +96,7 @@
     <footer class="container small mt-3">
         <hr />
         <div class="text-center">
-            <p>Created by: O. Mpofu</p>
-            <p><span class="fa-solid fa-copyright"></span>@DateTime.Now.Year - Dunder Mifflin Paper Company</p>
+            <p>@DateTime.Now.Year - Dunder Mifflin Paper Company</p>
         </div>
     </footer>
     <script asp-src-include="lib/bootstrap/js/bootstrap.bundle.min.js"></script>

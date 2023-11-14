@@ -3,8 +3,8 @@
 }
 
 a.default {
-    color:blue;
-    text-decoration:underline;
+    color: blue;
+    text-decoration: underline;
 }
 
 hr {
@@ -13,10 +13,10 @@ hr {
 }
 
 #disappearingAlert {
-    position:relative;
+    position: relative;
     z-index: 9999;
     margin-top: -35px;
-    left:inherit;
+    left: inherit;
     opacity: 0;
 }
 
@@ -74,44 +74,92 @@ hr {
             color: deeppink;
         }
 
-.position-relative {
+a {
     position: relative;
+    text-decoration: none;
+    padding: 0 10px;
 }
 
-.overlay {
+    a.nav-link:before,
+    a.nav-link:after {
+        content: "";
+        position: absolute;
+        height: 3px;
+        width: 0;
+        background-color: lightblue;
+        transition: 0.3s;
+    }
+
+    a:after {
+        left: 0;
+        margin-left: 10%;
+        bottom: 3px
+    }
+
+    a:before {
+        right: 0;
+        margin-right: 10%;
+        top: 3px
+    }
+
+    a:hover:after,
+    a:hover:before {
+        width: 80%;
+    }
+
+    a.nav-link.active:before,
+    a.nav-link.active:after {
+        content: "";
+        position: absolute;
+        height: 3px;
+        width: 80%;
+        background-color: lightblue;
+    }
+
+.vl {
+    border: 1px solid grey;
+    height: inherit;
+    width: 0px;
+    display: inline;
+}
+
+.bolder {
+    font-weight: 700;
+}
+
+.product-buttons {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top:0;
-    left:0;
-    display:flex;
-    flex-wrap:wrap;
-    align-content:end;
-    justify-content:center;
-    background-color: transparent;
-    z-index:1;
+    top: 45%;
+    left: 30%;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    z-index: 2;
     opacity: 0;
-    transition: opacity 0.1s ease;
+    transition: opacity ease-in-out 0.2s;
 }
 
-.position-relative:hover .overlay {
-    opacity: 1;
+    .product-buttons form {
+        width: fit-content;
+    }
+
+        .product-buttons form div {
+            width: fit-content;
+            height: fit-content;
+        }
+
+.product {
 }
 
+    .product:hover {
+        opacity: 0.70;
+    }
 
-.overlay-link {
-    width: 100%;
-    height: 100%;
-    position: relative;
+        .product:hover .product-buttons {
+            opacity: 1;
+        }
+
+.product-link {
     display: block;
-    z-index:999;
-    transition: opacity 0.1s ease;
+    background-color: lavender;
 }
-
-.position-relative:hover .overlay-link {
-    opacity: 0.75;
-}
-
-
-
-

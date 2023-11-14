@@ -1,38 +1,45 @@
 ﻿@model Product
 @{
-    string title = ViewBag.Action + " Product";
-    ViewData["Title"] = ViewBag.Action;
+    string title = "Edit Product";
+    ViewData["Title"] = title;
 }
 
-<h1>@title</h1>
+<h3>@title</h3>
 
 <form asp-action="Update" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
-    <input asp-for="ProductID" hidden/>
-    <div class="form-group">
-        <label asp-for="ProductTypeID"></label>
-        <select asp-for="ProductTypeID" asp-items=@ViewBag.ProductTypes class="form-control">
-            <option value="">--- Select product type ---</option>
-        </select>
+    <input asp-for="ProductID" hidden />
+    <div class="row">
+        <div class="col-3 me-1">
+            <img src="~/images/dundermifflin.png" class="product-img">
+        </div>
+        <div class="col-8">
+            <div class="form-group">
+                <label asp-for="ProductTypeID"></label>
+                <select asp-for="ProductTypeID" asp-items=@ViewBag.ProductTypes class="form-control">
+                    <option value="">--- Select product type ---</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Quantity"></label>
+                <input asp-for="Quantity" class="form-control">
+            </div>
+
+            <input type="hidden" asp-for="ProductID" />
+
+            <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
+            <a asp-action="List" class="btn btn-primary">Cancel</a>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control">
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control">
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Quantity"></label>
-        <input asp-for="Quantity" class="form-control">
-    </div>
-
-    <input type="hidden" asp-for="ProductID" />
-
-    <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
-    <a asp-action="List" class="btn btn-primary">Cancel</a>
 </form>

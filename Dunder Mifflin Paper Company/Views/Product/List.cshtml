@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Products";
+    bool isCustomer = User.IsInRole("Customer") || !User.Identity.IsAuthenticated;
 }
 
 
@@ -33,47 +34,33 @@
         </div>
         @foreach (Product p in Model.Products)
         {
-            <div id="@p.ProductID" class="col-md-3 position-relative">
-                <a class="overlay" asp-action="Details" asp-route-id="@p.ProductID">
-                    @if (User.IsInRole("Customer") || !User.Identity.IsAuthenticated)
+            <div id="@p.ProductID" class="col-md-3 position-relative product p-1"
+                 title="@(isCustomer?"Details":"Edit")">
+                <div class="product-buttons">
+                    @if (isCustomer)
                     {
-                        <form id="addToCart@(p.ProductID)" asp-controller="Cart" asp-action="Add" asp-route-productID="@p.ProductID" method="post">
+                        <form id="addToCart@(p.ProductID)" class="" method="post"
+                      asp-controller="Cart" asp-action="Add" asp-route-productID="@p.ProductID">
                             <input value="products" name="source" hidden />
-                            <div class="btn btn-outline-success cart-button mx-1 mb-5" title="Add to cart"
+                            <div class="btn btn-outline-success cart-button mx-1" title="Add to cart"
                                  onclick="submit('addToCart@(p.ProductID)')">
                                 +<i class="text-success fa-solid fa-cart-shopping"></i>
                             </div>
                         </form>
-                        <form id="addToFavs@(p.ProductID)" asp-controller="Favourite" asp-action="Add" asp-route-productID="@p.ProductID" method="post">
+                        <form id="addToFavs@(p.ProductID)" method="post"
+                      asp-controller="Favourite" asp-action="Add" asp-route-productID="@p.ProductID">
                             <input value="products" name="source" hidden />
-                            <div class="btn btn-ouline-secondary cart-button mx-1 mb-5" title="Add to wishlist" style="border:1px solid grey"
+                            <div class="btn btn-ouline-secondary cart-button mx-1" title="Add to wishlist" style="border:1px solid grey"
                                  onclick="submit('addToFavs@(p.ProductID)')">
                                 <i class="fa-solid fa-heart"></i>
                             </div>
                         </form>
                     }
-                    else if (User.IsInRole("Sales"))
-                    {
-                        <form id="Edit@(p.ProductID)" asp-controller="Cart" asp-action="Add" asp-route-productID="@p.ProductID" method="post">
-                            <input value="products" name="source" hidden />
-                            <div class="btn btn-outline-success cart-button mx-1 mb-5" title="Add to cart"
-                                 onclick="submit('Edit@(p.ProductID)')">
-                                +<i class="text-success fa-solid fa-edit"></i>
-                            </div>
-                        </form>
-                        <form id="Delete@(p.ProductID)" asp-controller="Favourite" asp-action="Add" asp-route-productID="@p.ProductID" method="post">
-                            <input value="products" name="source" hidden />
-                            <div class="btn btn-ouline-secondary cart-button mx-1 mb-5" title="Add to wishlist" style="border:1px solid grey"
-                                 onclick="submit('Delete@(p.ProductID)')">
-                                <i class="fa-solid fa-trash"></i>
-                            </div>
-                        </form>
-                    }
-
-                </a>
-                <a id="prodLink@(p.ProductID)" class="justify-content-center text-dark overlay-link" style="background-color:transparent;" asp-action="Details" asp-route-id="@p.ProductID">
+                </div>
+                <a id="prodLink@(p.ProductID)" class="justify-content-center text-dark product-link"
+               asp-action="@(isCustomer?"Details":"Update")" asp-route-id="@p.ProductID">
                     <img src="/images/dundermifflin.png" alt="@p.Name" style="width: 100%">
-                    <h5 class="w-100% mb-0">
+                    <h5 class="w-100 mb-0">
                         R@(p.Price)
                     </h5>
                     <h6 class="text-right w-100 mb-0">@p.Name</h6>

@@ -15,7 +15,7 @@ namespace Dunder_Mifflin_Paper_Company.Models
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Please enter the product price.")]
-        [Range(0, double.MaxValue)]
+        [Range(1, double.MaxValue)]
         [Display(Name = "Product price")]
         public decimal Price { get; set; }
 
