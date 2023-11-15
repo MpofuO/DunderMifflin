@@ -10,9 +10,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - Dunder Mifflin</title>
-    <link rel="stylesheet" asp-href-include="/css/custom.css?" />
     <link rel="stylesheet" asp-href-include="/lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" asp-href-include="/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" asp-href-include="/css/styles.css" />
 </head>
 <body>
     <header>
@@ -26,7 +26,7 @@
             </button>
             <nav class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
-                    @if ((User.Identity.IsAuthenticated && (!(User.IsInRole("CEO") || User.IsInRole("Manager"))) || !User.Identity.IsAuthenticated))
+                    @if (User.IsInRole("Customer") || User.IsInRole("Sales") || !User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item n-item">
                             <a class="nav-link
@@ -34,13 +34,15 @@
                         </li>
                         <li class="nav-item n-item">
                             <a class="nav-link
-                        @(controller == "Product" ? "active" : "")" asp-controller="Product" asp-action="List" asp-route-id="all">Products</a>
+                        @(controller == "Product" ? "active" : "")" asp-controller="Product" asp-action="List" asp-route-id="all">
+                            @(User.IsInRole("Sales") ? "Manage" : "") Products
+                        </a>
                         </li>
                         @if (User.IsInRole("Customer") || User.IsInRole("Sales"))
                         {
                             <li class="nav-item n-item">
                                 <a class="nav-link @(controller == "Order" ? "active" : "")" asp-controller="Order" asp-action="List">
-                                    Orders
+                                @(User.IsInRole("Sales")?"Manage":"") Orders
                                 </a>
                             </li>
                         }
@@ -49,7 +51,7 @@
                 <ul class="navbar-nav navbar-right ms-auto">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        @if (User.IsInRole("CEO") || User.IsInRole("Manager"))
+                        @if (User.IsInRole("CEO") || User.IsInRole("Manager") || User.IsInRole("Sales"))
                         {
                             <li class="nav-item me-2 n-item">
                                 <a class="nav-link

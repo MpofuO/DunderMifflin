@@ -160,14 +160,14 @@
                                 {
                                     <a asp-action="Details" asp-controller="Product" asp-route-id="@p.ProductID"
                                        class="me-1" style="position:relative; border: 1px solid grey;width:70px;height:70px;">
-                                        <img src="~/images/dundermifflin.png" style="width:100%;height:100%;" />
+                                        <img src="@Helpers.getSRC(p.Product.Image)" style="width:100%;height:100%;" />
                                     </a>
 
                                 }
                                 else
                                 {
                                     <a class="me-1" href="javascript: ShowDetails()" style="position:relative;border: 1px solid grey;width:70px;height:70px;">
-                                        <img src="~/images/dundermifflin.png" style="width:100%;height:100%;opacity:0.3" />
+                                        <img src="@Helpers.getSRC(p.Product.Image)" style="width:100%;height:100%;opacity:0.3" />
                                         <i class="fa-solid fa-plus" style="position:absolute;top:40%;left:40%"></i>
                                     </a>
                                 }
@@ -179,7 +179,7 @@
                             {
                                 <a asp-action="Details" asp-controller="Product" asp-route-id="@p.ProductID"
                                    class="d-flex ms-auto mb-2" style="position:relative;text-decoration:none;">
-                                    <img class="me-2" src="~/images/dundermifflin.png" style="border: 1px solid grey;width:75px;height:75px;" />
+                                    <img class="me-2" src="@Helpers.getSRC(p.Product.Image)" style="border: 1px solid grey;width:75px;height:75px;" />
                                     <div class="">
                                         <h6 class="mb-n1" style="color:dimgrey">@p.Product.Name</h6>
                                         <div class="d-flex align-content-end">

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "tF6IPVbd9KwoBnYzjDWAjY6CSBaZiCrYPKWZLLofiTI=",
+  "Hash": "jRp8+jmw6SXL5F0kjlw4Lr+xEWIAyEgAZzQuWdKagic=",
   "Source": "Dunder Mifflin Paper Company",
   "BasePath": "_content/Dunder Mifflin Paper Company",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\20208\\source\\repos\\DunderMifflin\\Dunder Mifflin Paper Company\\wwwroot\\css\\custom.css",
+      "Identity": "C:\\Users\\20208\\source\\repos\\DunderMifflin\\Dunder Mifflin Paper Company\\wwwroot\\css\\styles.css",
       "SourceId": "Dunder Mifflin Paper Company",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\20208\\source\\repos\\DunderMifflin\\Dunder Mifflin Paper Company\\wwwroot\\",
       "BasePath": "_content/Dunder Mifflin Paper Company",
-      "RelativePath": "css/custom.css",
+      "RelativePath": "css/styles.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -31,7 +31,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\custom.css"
+      "OriginalItemSpec": "wwwroot\\css\\styles.css"
     },
     {
       "Identity": "C:\\Users\\20208\\source\\repos\\DunderMifflin\\Dunder Mifflin Paper Company\\wwwroot\\images\\dundermifflin.png",

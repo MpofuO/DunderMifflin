@@ -106,7 +106,7 @@
         {
             <a asp-action="Details" asp-controller="Product" asp-route-id="@p.ProductID"
                class="d-flex me-auto mb-3 col-6" style="position:relative;text-decoration:none;">
-                <img class="me-3" src="~/images/dundermifflin.png" style="border: 1px solid grey;width:130px;height:130px;" />
+                <img class="me-3" src="@Helpers.getSRC(p.Product.Image)" style="border: 1px solid grey;width:130px;height:130px;" />
                 <div class="">
                     <h5 class="" style="color:dimgrey">@p.Product.Name</h5>
                     <h6 class="">R @p.Product.Price</h6>

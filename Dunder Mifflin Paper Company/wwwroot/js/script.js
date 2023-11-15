@@ -46,3 +46,16 @@ var submit = function (formID) {
     }
 }
 
+function selectFile() {
+    var fileInput = document.getElementById('fileInput');
+    fileInput.click();
+}
+
+function loadFile(event) {
+    var img = document.getElementById('product-img');
+    img.src = URL.createObjectURL(event.target.files[0]);
+    img.onload = function () {
+        URL.revokeObjectURL(output.src)
+    }
+}
+

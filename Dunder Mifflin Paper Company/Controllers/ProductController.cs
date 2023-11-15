@@ -48,7 +48,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            return View("Update", new Product());
+            return View("Update", new ProductUpdateViewModel { Product = new Product() });
         }
 
         [HttpGet]
@@ -66,10 +66,11 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                     .Select(f => f.ProductID).Contains(id) : false
                 });
             }
-            return View("List");
+            return RedirectToAction("List");
         }
 
         [HttpPost]
+        [Authorize(Roles = "Sales")]
         public IActionResult Delete(int id)
         {
             try
@@ -85,40 +86,51 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             {
                 ModelState.AddModelError("", "Unable to delete the product");
             }
-            return View("List");
+            return RedirectToAction("List");
         }
 
         [HttpGet]
+        [Authorize(Roles = "Sales")]
         public IActionResult Update(int id)
         {
             Product product = repository.Product.GetById(id);
             if (product != null)
             {
                 PopulateTypeDLL(repository.ProductType.GetById((int)product.ProductTypeID));
-                return View(product);
+                return View(new ProductUpdateViewModel { Product = product });
             }
-            return View("List");
+            return RedirectToAction("List");
         }
         [HttpPost]
-        public IActionResult Update(Product product)
+        [Authorize(Roles = "Sales")]
+        public async Task<IActionResult> Update(ProductUpdateViewModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (product.ProductID == default)
-                        repository.Product.Create(product);
+                    if (model.imageFile != null)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await model.imageFile.CopyToAsync(memoryStream);
+                            model.Product.Image = memoryStream.ToArray();
+                        }
+                    }
+
+                    if (model.Product.ProductID == default)
+                        repository.Product.Create(model.Product);
                     else
-                        repository.Product.Update(product);
+                        repository.Product.Update(model.Product);
                     repository.Save();
                 }
                 catch
                 {
                     ModelState.AddModelError("", "Unable to add or update product");
-                    return View(product);
+                    return View(model.Product);
                 }
             }
-            return View("List");
+            return RedirectToAction("List");
         }
         private void PopulateTypeDLL(object selectedType = null)
         {

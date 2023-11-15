@@ -14,10 +14,11 @@ namespace Dunder_Mifflin_Paper_Company.Components
 
         public IViewComponentResult Invoke()
         {
+            var id = RouteData?.Values["id"];
             var model = new ProdTypeListViewModel
             {
                 ProductTypes = _repository.ProductType.FindAll(),
-                SelectedCategory = (string)RouteData?.Values["id"]
+                SelectedCategory = id != null ? (string)id : "all"
             };
             return View(model);
         }

@@ -13,6 +13,7 @@ namespace Dunder_Mifflin_Paper_Company.Models
         [Required(ErrorMessage = "Please enter the product description.")]
         [Display(Name = "Description")]
         public string Description { get; set; }
+        public byte[] Image { get; set; }
 
         [Required(ErrorMessage = "Please enter the product price.")]
         [Range(1, double.MaxValue)]

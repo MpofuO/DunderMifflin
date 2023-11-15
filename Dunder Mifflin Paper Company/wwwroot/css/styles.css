@@ -1,0 +1,190 @@
+﻿body {
+    background-color: #f3f3f3;
+}
+
+a.default {
+    color: blue;
+    text-decoration: underline;
+}
+
+hr {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#disappearingAlert {
+    position: relative;
+    z-index: 9999;
+    margin-top: -35px;
+    left: inherit;
+    opacity: 0;
+}
+
+.alert {
+    padding: 10px;
+    background-color: lightgreen;
+    display: flex;
+    width: fit-content;
+}
+
+.btn-group button {
+    border: thin solid grey;
+    cursor: pointer;
+    height: 25px;
+    background-color: white;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.increment {
+    border-radius: 0 20px 20px 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .increment:hover {
+        background-color: lightgray;
+        color: dimgrey;
+    }
+
+.decrement {
+    border-radius: 20px 0 0 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .decrement:hover {
+        background-color: lightgrey;
+        color: dimgray;
+    }
+
+.cart-button {
+    font-size: small;
+    background-color: white;
+    color: grey;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .cart-button:hover {
+        background-color: lightgrey;
+        color: #333333;
+    }
+
+        .cart-button:hover i.fa-heart {
+            color: deeppink;
+        }
+
+a {
+    position: relative;
+    text-decoration: none;
+    padding: 0 10px;
+}
+
+    a.nav-link:before,
+    a.nav-link:after {
+        content: "";
+        position: absolute;
+        height: 3px;
+        width: 0;
+        background-color: lightblue;
+        transition: 0.3s;
+    }
+
+    a:after {
+        left: 0;
+        margin-left: 10%;
+        bottom: 3px
+    }
+
+    a:before {
+        right: 0;
+        margin-right: 10%;
+        top: 3px
+    }
+
+    a:hover:after,
+    a:hover:before {
+        width: 80%;
+    }
+
+    a.nav-link.active:before,
+    a.nav-link.active:after {
+        content: "";
+        position: absolute;
+        height: 3px;
+        width: 80%;
+        background-color: lightblue;
+    }
+
+.vl {
+    border: 1px solid grey;
+    height: inherit;
+    width: 0px;
+    display: inline;
+}
+
+.bolder {
+    font-weight: 700;
+}
+
+.product-buttons {
+    position: absolute;
+    top: 45%;
+    left: 30%;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity ease-in-out 0.2s;
+}
+
+    .product-buttons form {
+        width: fit-content;
+    }
+
+        .product-buttons form div {
+            width: fit-content;
+            height: fit-content;
+        }
+
+.product {
+}
+
+    .product:hover {
+        opacity: 0.70;
+    }
+
+        .product:hover .product-buttons {
+            opacity: 1;
+        }
+
+.product-link {
+    display: block;
+    background-color: lavender;
+}
+
+.product-img {
+    height: 275px;
+    width: 275px;
+    z-index: 1;
+}
+
+    .product-img:hover, .edit-img:hover {
+        opacity: 0.75;
+    }
+
+        .product-img:hover + .edit-img {
+            display: block;
+        }
+
+.edit-img {
+    position: absolute;
+    opacity: 1;
+    top: 50%;
+    left: 50%;
+    z-index: 0;
+    transition: display ease-in 3s;
+    color: orange;
+    display: none;
+}

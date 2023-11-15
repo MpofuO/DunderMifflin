@@ -34,7 +34,7 @@
         </div>
         @foreach (Product p in Model.Products)
         {
-            <div id="@p.ProductID" class="col-md-3 position-relative product p-1"
+            <div id="@p.ProductID" class="col-md-3 position-relative product p-1 d-flex"
                  title="@(isCustomer?"Details":"Edit")">
                 <div class="product-buttons">
                     @if (isCustomer)
@@ -57,19 +57,21 @@
                         </form>
                     }
                 </div>
-                <a id="prodLink@(p.ProductID)" class="justify-content-center text-dark product-link"
-               asp-action="@(isCustomer?"Details":"Update")" asp-route-id="@p.ProductID">
-                    <img src="/images/dundermifflin.png" alt="@p.Name" style="width: 100%">
-                    <h5 class="w-100 mb-0">
-                        R@(p.Price)
-                    </h5>
-                    <h6 class="text-right w-100 mb-0">@p.Name</h6>
-                    <h7 class="w-100%">
-                        @{
-                            string desc = p.InStock ? "In stock" : "Out of stock";
-                        }
-                        @desc
-                    </h7>
+                <a id="prodLink@(p.ProductID)" asp-action="@(isCustomer?"Details":"Update")" asp-route-id="@p.ProductID"
+                   class="justify-content-center d-grid align-content-space-evenly text-dark product-link p-0 bg-white">
+                    <img src="@Helpers.getSRC(p.Image)" alt="@p.Name" style="width: 100%">
+                    <div class="p-1">
+                        <h5 class="w-100 mb-0">
+                            R@(p.Price)
+                        </h5>
+                        <h6 class="text-right w-100 mb-0">@p.Name</h6>
+                        <h7 class="w-100%">
+                            @{
+                                string desc = p.InStock ? "In stock" : "Out of stock";
+                            }
+                            @desc
+                        </h7>
+                    </div>
                 </a>
             </div>
 

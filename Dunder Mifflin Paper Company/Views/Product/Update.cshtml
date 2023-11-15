@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model ProductUpdateViewModel
 @{
     string title = "Edit Product";
     ViewData["Title"] = title;
@@ -6,40 +6,51 @@
 
 <h3>@title</h3>
 
-<form asp-action="Update" method="post">
+<form asp-action="Update" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
-    <input asp-for="ProductID" hidden />
+    <input asp-for="Product.ProductID" hidden />
     <div class="row">
-        <div class="col-3 me-1">
-            <img src="~/images/dundermifflin.png" class="product-img">
+        <div class="col-3 me-1 position-relative" style="width:fit-content;height:fit-content">
+            <img id="product-img" for="imageFile" src="@Helpers.getSRC(Model.Product.Image)" class="product-img"
+                 onclick="selectFile()" title="Upload image">
+            <i class="fa-solid fa-pen-to-square fa-lg edit-img" title="Upload" onclick="selectFile()"></i>
+            <input id="fileInput" type="file" asp-for="imageFile" hidden onchange="loadFile(event)" accept="image/*" />
+            
         </div>
         <div class="col-8">
+            <div class="form-group mb-1">
+                <label asp-for="Product.Name" class="bolder"></label>
+                <input asp-for="Product.Name" class="form-control">
+            </div>
+
+            <div class="form-group mb-1">
+                <label asp-for="Product.Description" class="bolder"></label>
+                <textarea rows="4" cols="60" asp-for="Product.Description" class="form-control"></textarea>
+            </div>
+
+            <div class="d-flex mb-1">
+                <div class="form-group me-2">
+                    <label asp-for="Product.Price" class="bolder">Price</label>
+                    <input asp-for="Product.Price" class="form-control">
+                </div>
+
+                <div class="form-group mb-1">
+                    <label asp-for="Product.Quantity" class="bolder">Quantity</label>
+                    <input asp-for="Product.Quantity" class="form-control">
+                </div>
+            </div>
+
             <div class="form-group">
-                <label asp-for="ProductTypeID"></label>
-                <select asp-for="ProductTypeID" asp-items=@ViewBag.ProductTypes class="form-control">
+                <label asp-for="Product.ProductTypeID" class="bolder"></label>
+                <select asp-for="Product.ProductTypeID" asp-items=@ViewBag.ProductTypes class="form-control">
                     <option value="">--- Select product type ---</option>
                 </select>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control">
+            <div class="mt-2">
+                <button type="submit" class="btn btn-primary me-2">Update</button>
+                <a href="javascript:window.history.go(-1)" class="btn btn-outline-primary">Cancel</a>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Price"></label>
-                <input asp-for="Price" class="form-control">
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Quantity"></label>
-                <input asp-for="Quantity" class="form-control">
-            </div>
-
-            <input type="hidden" asp-for="ProductID" />
-
-            <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
-            <a asp-action="List" class="btn btn-primary">Cancel</a>
         </div>
     </div>
 </form>

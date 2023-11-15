@@ -48,7 +48,7 @@
                     if (i != 4)
                     {
                         <a class="me-2" style="position:relative; border: 1px solid grey;width:100px;height:100px;">
-                            <img src="~/images/dundermifflin.png" style="width:100%;height:100%;" />
+                            <img src="@Helpers.getSRC(product.Product.Image)" style="width:100%;height:100%;" />
                         </a>
 
                     }
@@ -56,7 +56,7 @@
                     {
                         <a asp-action="Details" asp-route-id="@order.OrderID"
                            class="me-2" style="position:relative;border: 1px solid grey;width:100px;height:100px;">
-                            <img src="~/images/dundermifflin.png" style="width:100%;height:100%;opacity:0.5;" />
+                            <img src="@Helpers.getSRC(product.Product.Image)" style="width:100%;height:100%;opacity:0.5;" />
                             <i class="fa-solid fa-plus" style="position:absolute; top:40%; right:40%"></i>
                         </a>
                     }
