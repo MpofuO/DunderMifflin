@@ -48,6 +48,8 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            ViewBag.Action = "Add";
+            PopulateTypeDLL();
             return View("Update", new ProductUpdateViewModel { Product = new Product() });
         }
 
@@ -59,6 +61,8 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             if (product != null)
             {
                 product.ProductType = repository.ProductType.FindAll().FirstOrDefault(p => p.ProductTypeID == product.ProductTypeID);
+
+                ViewBag.Action = "Update";
                 return View(new ProductDetailsViewModel
                 {
                     Product = product,
@@ -66,10 +70,10 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                     .Select(f => f.ProductID).Contains(id) : false
                 });
             }
+            TempData["Message"] = id == 0 ? "Product successfuly added" : "Product successfuly updates";
             return RedirectToAction("List");
         }
 
-        [HttpPost]
         [Authorize(Roles = "Sales")]
         public IActionResult Delete(int id)
         {
@@ -80,6 +84,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                 {
                     repository.Product.Delete(product);
                     repository.Save();
+                    TempData["Message"] = "Product successfuly deleted";
                 }
             }
             catch

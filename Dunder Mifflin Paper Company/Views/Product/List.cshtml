@@ -21,12 +21,19 @@
                 </div>
             </div>
         }
+
         <form method="get" asp-action="List" asp-route-id="@Model.SelectedType">
             <div class="mb-3 d-flex justify-content-center">
                 <input placeholder="Search for products..." name="search" asp-for="search" class="d-inline my-auto form-control" style="width:80%;" />
                 <button type="submit" class="btn btn-secondary my-auto d-inline d-flex" style="height:38px; position:relative;margin-left:5px;">
                     <i class="fa fa-search fa my-auto"></i>
                 </button>
+                @if (!isCustomer)
+                {
+                    <a class="btn btn-outline-success mx-2" asp-action="Add" title="Add new product">
+                        <i class="fa-solid fa-plus me-1"></i>New
+                    </a>
+                }
             </div>
         </form>
         <div class="mb-4">
