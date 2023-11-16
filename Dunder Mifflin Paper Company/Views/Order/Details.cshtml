@@ -12,7 +12,7 @@
             @if (!Model.isProcessed)
             {
                 <a asp-action="Delete" asp-route-id="@Model.OrderID" class="btn btn-danger me-4 py-1"
-                onclick="return confirm('Are you sure you want to cancel this order?')">
+        onclick="return confirm('Are you sure you want to cancel this order?')">
                     Cancel order
                 </a>
             }
@@ -38,7 +38,13 @@
     <div class="m-2 py-2">
         <h6 style="display:inline" class="bolder">Order #@Model.OrderNumber </h6>
         <div class="vl mx-1"></div>
-        <h6 style="display:inline;font-weight:normal;">@(Model.isProcessed ? $"Delivered {Model.ProcessedDate.ToString("dd MMMM yyyy")} " : $"ORDERED {Model.PlacedDate.ToString("dd MMMM yyyy")} ")</h6>
+        <h6 style="display:inline;font-weight:normal;">
+            @{
+                string s = Model.ProcessedDate.ToString("dd MMMM yyyy");
+        }
+            @(Model.isProcessed ? Model.isApproved ? $"DELIVERED {s}":$"DECLINED {s}"
+            : $"ORDERED {Model.PlacedDate.ToString("dd MMMM yyyy")} ")
+        </h6>
         <div class="vl mx-1"></div>
         <h6 style="display:inline;font-weight:normal;">PAID @Model.PlacedDate.ToString("dd MMMM yyyy")</h6>
     </div>
