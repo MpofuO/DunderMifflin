@@ -51,14 +51,14 @@
                 <ul class="navbar-nav navbar-right ms-auto">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        @if (User.IsInRole("CEO") || User.IsInRole("Manager") || User.IsInRole("Sales"))
+                        @if (User.IsInRole("CEO") || User.IsInRole("Manager"))
                         {
                             <li class="nav-item me-2 n-item">
                                 <a class="nav-link
                                 @(controller.StartsWith("Admin") ? "active" : "")" asp-controller="Admin" asp-action="Index">User Managenent</a>
                             </li>
                         }
-                        else
+                        else if(User.IsInRole("Customer"))
                         {
                             <li class="mx-2 d-flex align-content-center justify-content-center" style="flex-wrap:wrap;">
                                 <a class="btn d-flex align-content-center justify-content-center"
@@ -92,7 +92,7 @@
             </nav>
         </nav>
     </header>
-    <main class="container" style="margin-top:80px;">
+    <main class="container d-grid" style="margin-top:80px;">
         @RenderBody()
     </main>
     <footer class="container small mt-3">

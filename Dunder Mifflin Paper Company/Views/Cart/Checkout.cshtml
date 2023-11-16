@@ -41,13 +41,13 @@
         <form name="OrderReview" asp-action="Add" asp-controller="Order" method="post">
             <div class="row mt-4">
                 <div class="col-md-8">
-                    <div class="bg-white px-3 py-3 mb-3">
+                    <div class="bg-white px-3 py-3 mb-3 shadow">
                         <p>Delivery Method</p>
                         <input name="deliveryMethod" value="Delivery" hidden />
                         <button type="button" class="btn btn-primary" onclick="SelectDeliveryMethod('Delivery')" id="Delivery" style="margin-right:10px"> Delivery</button>
                         <button type="button" class="btn btn-outline-primary" onclick="SelectDeliveryMethod('Collection')" id="Collection"> Collection</button>
                     </div>
-                    <div class="bg-white px-3 py-3 mb-3" id="address">
+                    <div class="bg-white px-3 py-3 mb-3 shadow" id="address">
                         <div class="d-flex justify-content-between mb-n1">
                             <p>Delivery Address</p>
                             <a asp-action="Add" asp-controller="Address" asp-route-source="Checkout">Add Address</a>
@@ -96,7 +96,7 @@
                             <button type="button" onclick="Show('less')" id="showLess" class="btn cart-button" hidden>Show Less</button>
                         }
                     </div>
-                    <div class="bg-white px-3 py-3 mb-2">
+                    <div class="bg-white px-3 py-3 mb-2 shadow">
                         <p class="mb-1">Delivered by</p>
                         <hr />
                         <h6 class="">

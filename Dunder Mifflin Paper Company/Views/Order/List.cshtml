@@ -5,11 +5,13 @@
     string[] months = new string[] {
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"};
+    bool isCustomer = User.IsInRole("Customer");
+    bool isHistory = ViewContext.RouteData.Values["id"] != null && isCustomer;
 }
 
 @if (TempData["Message"] != null)
 {
-    <div class="d-flex justify-content-center" id="disappearingAlert">
+    <div class="d-flex justify-content-center position-absolute" id="disappearingAlert" style="align-self:center">
         <div class="alert alert-dismissible" role="alert">
             @TempData["Message"]
             <button type="button" class="ms-3 p-0 btn-close" style="position: inherit;padding: 0;align-self: center;"
@@ -19,51 +21,92 @@
     </div>
 }
 
-<div class="d-flex justify-content-between">
-    <h4 class="ms-3 mb-0" style="align-content: end;display: flex;flex-wrap: wrap;">Orders</h4>
-    <a href="#" style="align-content: end;display: flex;flex-wrap: wrap;text-decoration-line:underline;">View history</a>
-</div>
+@if (Model.Count() > 0)
+{
+    <div class="d-flex justify-content-between mt-3">
+        <h4 class="ms-3 mb-0" style="align-content: end;display: flex;flex-wrap: wrap;">Orders</h4>
+        @if (User.IsInRole("Customer"))
+        {
+            <a asp-action="List" asp-route-id="@(isHistory?"":"history")" style="text-decoration-line:underline;">
+                @(isHistory ? "Back to orders" : "View history")
+            </a>
+        }
+    </div>
 
-<div class="mt-2 mb-4">
-    @foreach (var order in Model)
-    {
-        <div class="bg-white p-3 pb-1 mb-2 shadow">
-            <div class="d-flex justify-content-between align-content-center py-2">
-                @{
-                    DateTime date = order.isProcessed ? order.ProcessedDate : order.PlacedDate.AddDays(3);
-                }
-                <h5>@(order.isProcessed ? "Delivered " : "Arrives by ") @date.ToString("ddd, dd MMMM yyyy")</h5>
-                <a asp-action="Details" asp-route-id="@order.OrderID"
-                   class="btn px-2 py-1" style="background-color:#f3f3f3; border: 1px solid grey;border-radius:0;">
-                    Order Details
-                </a>
-            </div>
-            <hr />
-            <div class="d-flex m-2">
-                @{
-                    int i = 0;
-                }
-                @foreach (var product in order.Products.Take(5))
+    <div class="mt-2 mb-4">
+        @foreach (var order in Model)
+        {
+            <div class="bg-white p-3 pb-1 mb-2 shadow">
+                @if (isCustomer)
                 {
-                    if (i != 4)
-                    {
-                        <a class="me-2" style="position:relative; border: 1px solid grey;width:100px;height:100px;">
-                            <img src="@Helpers.getSRC(product.Product.Image)" style="width:100%;height:100%;" />
-                        </a>
-
-                    }
-                    else
-                    {
+                    <div class="d-flex justify-content-between align-content-center py-2">
+                        @{
+                            DateTime date = order.isProcessed ? order.ProcessedDate : order.PlacedDate.AddDays(3);
+                        }
+                        <h5>@(order.isProcessed ? "Delivered " : "Arrives by ") @date.ToString("dddd, dd MMMM yyyy")</h5>
                         <a asp-action="Details" asp-route-id="@order.OrderID"
-                           class="me-2" style="position:relative;border: 1px solid grey;width:100px;height:100px;">
-                            <img src="@Helpers.getSRC(product.Product.Image)" style="width:100%;height:100%;opacity:0.5;" />
-                            <i class="fa-solid fa-plus" style="position:absolute; top:40%; right:40%"></i>
+                           class="btn px-2 py-1" style="background-color:#f3f3f3; border: 1px solid grey;border-radius:0;">
+                            Order Details
                         </a>
-                    }
-                    i++;
+                    </div>
+                    <hr />
+                    <div class="d-flex m-2">
+                        @{
+                            int i = 0;
+                        }
+                        @foreach (var product in order.Products.Take(5))
+                        {
+                            if (i != 4)
+                            {
+                                <a class="me-2" style="position:relative; border: 1px solid grey;width:100px;height:100px;">
+                                    <img src="@Helpers.getSRC(product.Product.Image)" style="width:100%;height:100%;" />
+                                </a>
+
+                            }
+                            else
+                            {
+                                <a asp-action="Details" asp-route-id="@order.OrderID"
+                                   class="me-2" style="position:relative;border: 1px solid grey;width:100px;height:100px;">
+                                    <img src="@Helpers.getSRC(product.Product.Image)" style="width:100%;height:100%;opacity:0.5;" />
+                                    <i class="fa-solid fa-plus" style="position:absolute; top:40%; right:40%"></i>
+                                </a>
+                            }
+                            i++;
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex justify-content-between align-content-center py-2">
+                        <div>
+                            <h5>Placed:  @order.PlacedDate.ToString("dddd, dd MMMM yyyy")</h5>
+                            <p>Customer Username: <strong>@order.CustomerUserName</strong></p>
+                        </div>
+                        <a asp-action="Details" asp-route-id="@order.OrderID" class="btn btn-outline-secondary p-1 px-2" style="height:fit-content;">
+                            View Order
+                        </a>
+                    </div>
                 }
             </div>
+        }
+    </div>
+}
+else
+{
+    <div class="d-grid">
+        @{
+            string message = isCustomer ? isHistory ? "You have no orders that have been processed yet" :
+            "You have no pending orders" : "All placed orders have been processed";
+        }
+        <h5 style="justify-self:center">@message</h5>
+        <div class="d-flex" style="justify-self:center">
+            <a class="mx-1" asp-action="List" asp-controller="Product">Back to all products</a>
+            @if (isCustomer)
+            {
+                <a class="mx-1" asp-action="List" asp-route-id="@(isHistory?"":"history")">
+                    @(!isHistory ? "View order history" : "Back to orders")
+                </a>
+            }
         </div>
-    }
-</div>
-
+    </div>
+}

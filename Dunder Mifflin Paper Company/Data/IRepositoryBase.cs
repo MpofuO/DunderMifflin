@@ -11,6 +11,5 @@ namespace Dunder_Mifflin_Paper_Company.Data
         void Create(T entity);
         void Update(T entity);
         void Delete(T entity);
-        IEnumerable<T> GetWithOptions(QueryOptions<T> options);
     }
 }

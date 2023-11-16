@@ -16,47 +16,57 @@
     </div>
 }
 
-<h3 class="ms-3">Wish List</h3>
+@if (Model.Count() > 0)
+{
+    <h3 class="ms-3 mt-3">Wish List</h3>
 
-<div class="mt-4">
-    @foreach (var favourite in Model)
-    {
-        <div class="row m-3 bg-white  d-flex justify-content-between">
-            <div class="col-md-8 me-1">
-                <a asp-controller="Product" asp-action="Details" asp-route-id="@favourite.ProductID"
-                   style="color:black; text-decoration:none;">
-                    <div class="row">
-                        <div class="col-md-3 me-1 d-flex align-content-center">
-                            <img src="/images/dundermifflin.png" class="m-1" alt="@favourite.Product.Name" style="width: 100%;">
+    <div class="mt-4">
+        @foreach (var favourite in Model)
+        {
+            <div class="row m-3 bg-white  d-flex justify-content-between">
+                <div class="col-md-8 me-1">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@favourite.ProductID"
+                       style="color:black; text-decoration:none;">
+                        <div class="row">
+                            <div class="col-md-3 me-1 d-flex align-content-center">
+                                <img src="@Helpers.getSRC(favourite.Product.Image)" class="m-1" alt="@favourite.Product.Name" style="width: 100%;">
+                            </div>
+                            <div class="col-md-8 me-1 mt-3">
+                                <h4>
+                                    @favourite.Product.Name
+                                </h4>
+                                <p>
+                                    @(favourite.Product.InStock ? "In Stock" : "Out of Stock")
+                                </p>
+                            </div>
                         </div>
-                        <div class="col-md-8 me-1 mt-3">
-                            <h4>
-                                @favourite.Product.Name
-                            </h4>
-                            <p>
-                                @(favourite.Product.InStock ? "In Stock" : "Out of Stock")
-                            </p>
+                    </a>
+                </div>
+                <div class="col-md-3 mt-3 me-1">
+                    <h3 class="text-end">
+                        @($"R {favourite.Product.Price}")
+                    </h3>
+                    <form asp-controller="Cart" asp-action="Add" asp-route-productId="@favourite.Product.ProductID" method="post" class="mt-4">
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-success me-1" type="submit">
+                                +<i class="fa-solid fa-cart-shopping"></i> Add to cart
+                            </button>
+                            <a asp-controller="Favourite" asp-action="Remove" asp-route-favouriteID="@favourite.FavouriteID"
+                               class="btn btn-outline-secondary">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 mt-3 me-1">
-                <h3 class="text-end">
-                    @($"R {favourite.Product.Price}")
-                </h3>
-                <form asp-controller="Cart" asp-action="Add" asp-route-productId="@favourite.Product.ProductID" method="post" class="mt-4">
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-success me-1" type="submit">
-                            +<i class="fa-solid fa-cart-shopping"></i> Add to cart
-                        </button>
-                        <a asp-controller="Favourite" asp-action="Remove" asp-route-favouriteID="@favourite.FavouriteID"
-                           class="btn btn-outline-secondary">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
 
-        </div>
-    }
-</div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="d-grid">
+        <h5 style="justify-self:center">No Favourites</h5>
+        <a style="justify-self:center" asp-action="List" asp-controller="Product">See all products</a>
+    </div>
+}

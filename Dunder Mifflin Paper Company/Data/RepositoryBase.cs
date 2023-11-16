@@ -35,17 +35,6 @@ namespace Dunder_Mifflin_Paper_Company.Data
         {
             return context.Set<T>().Find(id);
         }
-
-        public IEnumerable<T> GetWithOptions(QueryOptions<T> options)
-        {
-            IQueryable<T> query = context.Set<T>();
-            if (options.HasWhere)
-            {
-                query = query.Where(options.Where);
-            }
-            return query;
-        }
-
         public void Update(T entity)
         {
             context.Set<T>().Update(entity);

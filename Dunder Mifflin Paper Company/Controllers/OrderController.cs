@@ -24,12 +24,12 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             if (User.IsInRole("Customer"))
             {
                 if (id == "history")
-                    list = repository.Order.GetUserOrdersWithProducts(User.Identity.Name).Where(order => order.isProcessed);
+                    list = repository.Order.GetUserOrderHistoryWithProducts(User.Identity.Name);
                 else
-                    list = repository.Order.GetUserOrdersWithProducts(User.Identity.Name).Where(order => order.isPlaced);
+                    list = repository.Order.GetUserPlacedOrdersWithProducts(User.Identity.Name);
             }
             else
-                list = repository.Order.FindAll().Where(order => !order.isProcessed);
+                list = repository.Order.GetPlacedOrders();
 
             return View(list);
         }
@@ -39,7 +39,7 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             Order order = repository.Order.GetOrderWithDetails(id);
             if (order != null)
                 return View(order);
-            return View("List");
+            return RedirectToAction("List");
         }
 
         [HttpPost]
@@ -67,39 +67,43 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
             }
 
             repository.Save();
-
+            TempData["Message"] = "You have successfully placed your order";
             return RedirectToAction("List", "Product", new { id = "all" });
         }
-        [HttpPost]
+
+        //Still needs to be reviewed.
         [Authorize(Roles = "Customer")]
         public IActionResult Delete(int id)
         {
             try
             {
-                Order order = repository.Order.GetById(id);
+                Order order = repository.Order.GetOrderWithProducts(id);
                 if (order != null)
                 {
+                    foreach (CartProduct p in order.Products)
+                        repository.CartProduct.Delete(p);
+
                     repository.Order.Delete(order);
                     repository.Save();
+                    TempData["Message"] = $"Order #{order.OrderNumber} has been cancelled";
                 }
             }
             catch
             {
                 ModelState.AddModelError("", "Unable to cancel the order");
             }
-            return View("List");
+            return RedirectToAction("List");
         }
 
-        [HttpPost]
         [Authorize(Roles = "Sales")]
-        public IActionResult ProcessOrder(int id, [Required]string processId)//processId is approve/disapprove
+        public IActionResult Process(int orderID, string processId)//processId is approve/decline
         {
-            Order order = repository.Order.GetById(id);
+            Order order = repository.Order.GetOrderWithProducts(orderID);
             if (order != null)
             {
                 if (processId == "approve")
                 {
-                    IEnumerable<CartProduct> products = repository.CartProduct.GetUserCartProductsWithProducts(User.Identity.Name);
+                    IEnumerable<CartProduct> products = order.Products;
                     foreach (var p in products)
                     {
                         Product product = repository.Product.GetById(p.ProductID);
@@ -116,8 +120,9 @@ namespace Dunder_Mifflin_Paper_Company.Controllers
                 repository.Order.Update(order);
                 repository.Save();
             }
+            TempData["Message"] = $"Order #{order.OrderNumber} successfully {processId}d.";
 
-            return View("List");
+            return RedirectToAction("List");
         }
     }
 }

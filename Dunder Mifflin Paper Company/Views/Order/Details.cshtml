@@ -6,9 +6,32 @@
 
 <div class="d-flex justify-content-between mb-3">
     <h4 style="color:dimgrey;align-content: baseline;display: flex;flex-wrap: wrap-reverse;margin: 0;">Order Details</h4>
-    <a asp-action="List" class="btn px-2 py-1" style="background-color:lightgray;border: 1px solid grey;border-radius:0;">
-        View All Orders
-    </a>
+    @if (User.IsInRole("Customer"))
+    {
+        <div>
+            @if (!Model.isProcessed)
+            {
+                <a asp-action="Delete" asp-route-id="@Model.OrderID" class="btn btn-danger me-4 py-1"
+                onclick="return confirm('Are you sure you want to cancel this order?')">
+                    Cancel order
+                </a>
+            }
+            <a asp-action="List" class="btn px-2 py-1" style="background-color:lightgray;border: 1px solid grey;border-radius:0;">
+                View All Orders
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="d-flex">
+            <a asp-action="Process" asp-route-orderID="@Model.OrderID" asp-route-processId="approve" class="btn btn-success m-1 px-2 py-1">
+                Send for delivery
+            </a>
+            <a asp-action="Process" asp-route-orderID="@Model.OrderID" asp-route-processId="decline" class="btn btn-danger m-1 px-2 py-1">
+                Decline
+            </a>
+        </div>
+    }
 </div>
 
 <div class="bg-white py-2 mb-3 shadow">
