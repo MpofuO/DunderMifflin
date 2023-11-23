@@ -7,20 +7,18 @@ This application has seed data for users thus can be ran and tested on the go. P
 
 ## Feature Goals
 My goal is a website that features the following:
-- Users should be able to register and login as a customer (implemented)
-- Employees are added by those in roles that have more authority (CEO and Manager) (not fully implemented)
+- Users should be able to register and login as a customer or as an employee (implemented)
+- Employees are added by those in roles that have more authority (CEO and Manager)
 - Customers should be able to view all products, altogether or by category (implemented)
 - Customers should be able to view the details of a product, add a product to cart and to wishlist (implemented)
-- Customers should be able to place orders through a checkout page and view details of placed orders (implemented), cancel orders and view the order history
-- Customers should be able to add addresses where they expect their orders to be delivered to (implemented)
-- Customers should be able to select whether an rders should be delivery or will be collectedby the customer (implemented)
-- A CEO should be able to add a manager and a manager a salesperson
-- A salesperson should be able to process an order from the list of all placed orders
-- A salesperson shoul be able top add a product to inventory, edit the product (image, name, quantity, description)
-- Good user experience by adding user friendly error messages and alerts(implemented)
+- Customers should be able to place orders through a checkout page and view details of placed orders, cancel orders and view the order history (implemented)
+- Customers should be able to add addresses of where they expect their orders to be delivered to (implemented)
+- Customers should be able to select whether an order should be delivery or will be collected by the customer (implemented)
+- A CEO should be able to add a manager and a manager should be able to add a salesperson
+- A salesperson should be able to process an order from the list of all placed orders (implemented)
+- A salesperson shoul be able top add a product to inventory and edit any existing product details (image, name, price, quantity, description, type) (implemented)
+- Good user experience by adding user friendly error messages and alerts (implemented)
 
-
-Note: *Goals not tagged with (implemented) may be partially implemented, not fully*
 
 Note: *These goals are subject to change as I build the project and find new ideas to try out*
 
@@ -38,6 +36,10 @@ The following images show some pages of the website's current status
 ![Products](products.png)
 
 
+### Products (For Salesperson):
+![Products](products-sales.png)
+
+
 ### Product Details:
 ![Product Details](product-details.png)
 
@@ -50,18 +52,36 @@ The following images show some pages of the website's current status
 ![Cart](cart.png)
 
 
+### Add Address:
+![Checkout](add-address.png)
+
+
 ### Checkout:
 ![Checkout](checkout.png)
 
 
-### Order:
-![Cart](orders.png)
+### Orders:
+![Cart](orders-customer.png)
+
+
+### Orders (For Salesperson):
+![Cart](orders-sales.png)
 
 
 ### Order Details:
 ![Cart](order-details.png)
 
 
+### Order Details (For Salesperson):
+![Cart](order-details-sales.png)
+
+
+### Add Product (For Salesperson):
+![Cart](new-product.png)
+
+
+### Edit Product Details (For Salesperson):
+![Product Details](edit-product.png)
 
 
 ## Contact
