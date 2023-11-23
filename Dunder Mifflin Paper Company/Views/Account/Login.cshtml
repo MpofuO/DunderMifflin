@@ -3,6 +3,14 @@
 <div class="d-flex justify-content-center">
     <div class="mb-3 p-3 shadow" style="width:30%; border-radius:15px; background-color:whitesmoke;">
         <h4 class="mb-2 d-flex justify-content-center">Welcome back</h4>
+        <p class="d-flex justify-content-center">Please enter your credentials to login</p>
+        <div style ="justify-self:center" class="text-success">
+            <h6 class="">Note:</h6>
+            <ul>
+                <li>Your username is your surname followed by the first letter of your name</li>
+                <li>i.e. for Jaylen Blackwell the username is <strong>blackwellj</strong></li>
+            </ul>
+        </div>
         <div asp-validation-summary="All" class="text-danger"></div>
         <form asp-action="Login" method="post">
             <div class="mb-3">
